@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", але команда покарання задовга."
 	"announcement.outcome.command_service_unavailable"	", але служба серверних команд недоступна."
 	"announcement.outcome.network_unstable"	", але покарання не надіслано через нестабільне з'єднання."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"Це тест. Жодного гравця не було виявлено чи покарано."
 
 	"evidence.aimbot.snap_return"	"Поріг досягнуто після {incidents} різких доведень із влучанням; останнє було поверненням на {snap}°."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"Покарання не надіслано, бо налаштована команда задовга."
 	"webhook.outcome.command_service_unavailable"	"Покарання не надіслано, бо служба серверних команд недоступна."
 	"webhook.outcome.network_unstable"	"Покарання не надіслано, оскільки з'єднання гравця перевищило безпечні мережеві межі."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"Результат покарання недоступний."
 	"webhook.unknown_player"	"Невідомий гравець"
 	"webhook.unknown_detection"	"НЕВІДОМО"

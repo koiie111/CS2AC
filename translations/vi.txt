@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", nhưng lệnh phạt quá dài."
 	"announcement.outcome.command_service_unavailable"	", nhưng dịch vụ lệnh máy chủ không khả dụng."
 	"announcement.outcome.network_unstable"	", nhưng không gửi hình phạt vì kết nối không ổn định."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"Đây là tin nhắn thử nghiệm. Không có người chơi nào bị phát hiện hoặc xử phạt."
 
 	"evidence.aimbot.snap_return"	"Đạt ngưỡng sau {incidents} lần kéo tâm đột ngột kèm trúng đạn; lần gần nhất là kéo rồi trả lại {snap}°."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"Không gửi hình phạt vì lệnh được cấu hình quá dài."
 	"webhook.outcome.command_service_unavailable"	"Không gửi hình phạt vì dịch vụ lệnh máy chủ không khả dụng."
 	"webhook.outcome.network_unstable"	"Không gửi hình phạt vì kết nối của người chơi vượt quá giới hạn mạng an toàn."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"Không có kết quả hình phạt."
 	"webhook.unknown_player"	"Người chơi không xác định"
 	"webhook.unknown_detection"	"KHÔNG XÁC ĐỊNH"

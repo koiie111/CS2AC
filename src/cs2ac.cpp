@@ -7,6 +7,7 @@
 #include "sdk/cgameresourceserviceserver.h"
 #include "sdk/navphysicsinterface.h"
 #include "settings.h"
+#include "site_report.h"
 #include "webhook.h"
 #include "utils/addresses.h"
 #include "utils/ctimer.h"
@@ -34,6 +35,16 @@ namespace
 		"NULLS",     "SILENTAIM",   "SUBTICK SPAM",
 	};
 	static_assert(CS2AC_ARRAYSIZE(detectionNames) == static_cast<size_t>(DetectionType::Count));
+
+	std::size_t CountDetectionsWithMode(DetectionMode mode)
+	{
+		std::size_t count = 0;
+		for (std::uint8_t index = 0; index < static_cast<std::uint8_t>(DetectionType::Count); ++index)
+		{
+			count += settings::GetDetectionMode(static_cast<DetectionType>(index)) == mode;
+		}
+		return count;
+	}
 
 	void HandleDetectionCallback(const char *detection, MovementPlayer *player, const localization::Text &evidence)
 	{
@@ -306,6 +317,18 @@ bool CS2ACPlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen, b
 		if (error && maxlen)
 		{
 			snprintf(error, maxlen, "CS2AC could not reserve memory for Discord reports.");
+		}
+		return false;
+	}
+	siteReport = new (std::nothrow) SiteReportService;
+	if (!siteReport)
+	{
+		delete webhook;
+		webhook = nullptr;
+		settings::Shutdown();
+		if (error && maxlen)
+		{
+			snprintf(error, maxlen, "CS2AC could not reserve memory for website reports.");
 		}
 		return false;
 	}
@@ -596,6 +619,10 @@ void CS2ACPlugin::OnGameFrame(bool simulating)
 	{
 		webhook->OnGameFrame();
 	}
+	if (siteReport)
+	{
+		siteReport->OnGameFrame();
+	}
 }
 
 void CS2ACPlugin::OnGameEvent(IGameEvent *event, MovementPlayer *player)
@@ -620,6 +647,19 @@ void CS2ACPlugin::HandleDetection(const char *detection, MovementPlayer *player,
 
 	const std::string playerName = SanitizeConsoleText(player->GetName());
 	const std::uint64_t steamId = player->GetSteamId64(false);
+	DetectionMode mode = DetectionMode::Punish;
+	for (std::uint8_t index = 0; index < static_cast<std::uint8_t>(DetectionType::Count); ++index)
+	{
+		if (CS2AC_STREQI(detection, detectionNames[index]))
+		{
+			mode = settings::GetDetectionMode(static_cast<DetectionType>(index));
+			break;
+		}
+	}
+	if (mode == DetectionMode::Disabled)
+	{
+		return;
+	}
 	const auto finish = [&](utils::DetectionOutcome outcome)
 	{
 		utils::AnnounceDetection(detection, player->GetName(), outcome);
@@ -654,6 +694,14 @@ void CS2ACPlugin::HandleDetection(const char *detection, MovementPlayer *player,
 	{
 		finish(utils::DetectionOutcome::Whitelisted);
 		Msg("[CS2AC] No punishment was sent because %s is whitelisted.\n", playerName.c_str());
+		return;
+	}
+
+	if (mode == DetectionMode::Report)
+	{
+		const bool queued = siteReport && siteReport->Report(detection, player, evidence.localized);
+		finish(queued ? utils::DetectionOutcome::WebsiteReportQueued : utils::DetectionOutcome::WebsiteReportUnavailable);
+		Msg("[CS2AC] Website report for %s was %s. No punishment command was sent.\n", playerName.c_str(), queued ? "queued" : "not queued");
 		return;
 	}
 
@@ -730,9 +778,12 @@ void CS2ACPlugin::OnClientDisconnect(CPlayerSlot slot)
 void CS2ACPlugin::PrintConfigSummary(bool reloaded) const
 {
 	const size_t enabled = settings::GetEnabledDetectionCount();
+	const size_t reporting = CountDetectionsWithMode(DetectionMode::Report);
+	const size_t punishing = CountDetectionsWithMode(DetectionMode::Punish);
 	const size_t total = static_cast<size_t>(DetectionType::Count);
-	Msg("[CS2AC] Configuration %s: %zu/%zu detectors enabled, %zu whitelisted SteamIDs, %zu rejected entries, %zu duplicates ignored.\n",
-		reloaded ? "reloaded" : "loaded", enabled, total, settings::GetWhitelistCount(), settings::GetRejectedWhitelistCount(),
+	Msg("[CS2AC] Configuration %s: %zu/%zu detectors active (%zu report, %zu punish), %zu whitelisted SteamIDs, %zu rejected entries, %zu "
+		"duplicates ignored.\n",
+		reloaded ? "reloaded" : "loaded", enabled, total, reporting, punishing, settings::GetWhitelistCount(), settings::GetRejectedWhitelistCount(),
 		settings::GetDuplicateWhitelistCount());
 	Msg("[CS2AC] Public announcements: chat %s, center screen %s.\n", settings::ShowChatAnnouncements() ? "on" : "off",
 		settings::ShowCenterAnnouncements() ? "on" : "off");
@@ -741,6 +792,8 @@ void CS2ACPlugin::PrintConfigSummary(bool reloaded) const
 		settings::GetKickCommand() && *settings::GetKickCommand() ? "configured" : "disabled");
 	Msg("[CS2AC] Discord webhook: %s.\n",
 		webhook && webhook->IsConfigured() ? (webhook->IsDisabled() ? "disabled after an error" : "configured") : "not configured");
+	Msg("[CS2AC] Website reports: %s.\n",
+		siteReport && siteReport->IsConfigured() ? (siteReport->IsDisabled() ? "disabled after an error" : "configured") : "not configured");
 }
 
 void CS2ACPlugin::PrintHelp() const
@@ -785,6 +838,10 @@ void CS2ACPlugin::OnConfigLoaded()
 	if (webhook)
 	{
 		webhook->Reload();
+	}
+	if (siteReport)
+	{
+		siteReport->Reload();
 	}
 	PrintConfigSummary(reloaded);
 	CheckConfig();
@@ -835,6 +892,16 @@ void CS2ACPlugin::CheckConfig() const
 	if (!WebhookService::IsValidLogoUrl(settings::GetWebhookLogoUrl()))
 	{
 		Msg("[CS2AC] Review cs2ac_webhook_logo_url: it must be an HTTPS URL.\n");
+		++findings;
+	}
+	if (!SiteReportService::IsValidUrl(settings::GetReportUrl()))
+	{
+		Msg("[CS2AC] Review cs2ac_report_url: it must be a valid HTTPS URL.\n");
+		++findings;
+	}
+	if (CountDetectionsWithMode(DetectionMode::Report) && (!siteReport || !siteReport->IsConfigured()))
+	{
+		Msg("[CS2AC] Review website reports: at least one detector uses mode 1, but cs2ac_report_url or cs2ac_report_secret is empty.\n");
 		++findings;
 	}
 	if (!settings::ShowChatAnnouncements() && !settings::ShowCenterAnnouncements())
@@ -937,6 +1004,8 @@ void CS2ACPlugin::PrintStatus() const
 	}
 	Msg("[CS2AC] Players: %d connected (%d human, %d bots).\n", connected, humans, bots);
 	Msg("[CS2AC] Detectors: %zu/%zu enabled.\n", settings::GetEnabledDetectionCount(), static_cast<size_t>(DetectionType::Count));
+	Msg("[CS2AC] Detector modes: %zu website report, %zu punishment.\n", CountDetectionsWithMode(DetectionMode::Report),
+		CountDetectionsWithMode(DetectionMode::Punish));
 	Msg("[CS2AC] Enabled detectors: %s.\n", enabledNames.empty() ? "none" : enabledNames.c_str());
 	Msg("[CS2AC] Whitelist: %zu valid entries, %zu rejected, %zu duplicates ignored during the last update.\n", settings::GetWhitelistCount(),
 		settings::GetRejectedWhitelistCount(), settings::GetDuplicateWhitelistCount());
@@ -949,6 +1018,10 @@ void CS2ACPlugin::PrintStatus() const
 	Msg("[CS2AC] Discord webhook: %s, %zu queued report%s.\n",
 		webhook && webhook->IsConfigured() ? (webhook->IsDisabled() ? "disabled after an error" : "configured") : "not configured", webhookQueueSize,
 		webhookQueueSize == 1 ? "" : "s");
+	const size_t siteQueueSize = siteReport ? siteReport->QueueSize() : 0;
+	Msg("[CS2AC] Website reports: %s, %zu queued report%s.\n",
+		siteReport && siteReport->IsConfigured() ? (siteReport->IsDisabled() ? "disabled after an error" : "configured") : "not configured",
+		siteQueueSize, siteQueueSize == 1 ? "" : "s");
 	Msg("[CS2AC] sv_cheats testing: %s.\n", MovementDetectionService::IsSvCheatsTestingAllowed() ? "allowed" : "not allowed");
 }
 
@@ -981,6 +1054,12 @@ void CS2ACPlugin::CleanupRuntime()
 		webhook->Unload();
 		delete webhook;
 		webhook = nullptr;
+	}
+	if (siteReport)
+	{
+		siteReport->Unload();
+		delete siteReport;
+		siteReport = nullptr;
 	}
 	bool sourceHooksRemoved = hooks::Cleanup();
 	utils::ResetDetectionAnnouncement();

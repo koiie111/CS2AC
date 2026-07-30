@@ -34,7 +34,13 @@ namespace
 		}
 	}
 
-	void OnDetectionSettingChanged(CConVar<bool> *, CSplitScreenSlot, const bool *, const bool *)
+	void OnPluginSettingChanged(CConVar<bool> *, CSplitScreenSlot, const bool *, const bool *)
+	{
+		detectionMaskDirty = true;
+		BumpRevision();
+	}
+
+	void OnDetectionSettingChanged(CConVar<int32> *, CSplitScreenSlot, const int32 *, const int32 *)
 	{
 		detectionMaskDirty = true;
 		BumpRevision();
@@ -72,36 +78,41 @@ namespace
 
 	struct Configuration
 	{
-		CConVar<bool> enabled {"cs2ac_enabled", FCVAR_NONE, "Enable or disable CS2AC", true, OnDetectionSettingChanged};
-		CConVar<bool> aimbotEnabled {"cs2ac_aimbot_enabled", FCVAR_NONE, "Detect damaging visible aim snaps", true, OnDetectionSettingChanged};
-		CConVar<bool> aimlockEnabled {"cs2ac_aimlock_enabled", FCVAR_NONE, "Detect unnaturally precise target tracking", true,
+		CConVar<bool> enabled {"cs2ac_enabled", FCVAR_NONE, "Enable or disable CS2AC", true, OnPluginSettingChanged};
+		CConVar<int32> aimbotEnabled {"cs2ac_aimbot_enabled",   FCVAR_NONE, "0=off, 1=website report, 2=punish", 0, true, 0, true, 2,
 									  OnDetectionSettingChanged};
-		CConVar<bool> antiaimEnabled {"cs2ac_antiaim_enabled", FCVAR_NONE, "Detect impossible or manipulated view angles", true,
-									  OnDetectionSettingChanged};
-		CConVar<bool> autostrafeEnabled {"cs2ac_autostrafe_enabled", FCVAR_NONE, "Detect automated air strafing", true, OnDetectionSettingChanged};
-		CConVar<bool> bhopEnabled {"cs2ac_bhop_enabled", FCVAR_NONE, "Detect automated bunny hopping", true, OnDetectionSettingChanged};
-		CConVar<bool> dllInjectionEnabled {"cs2ac_dll_injection_enabled", FCVAR_NONE, "Detect suspicious client event subscriptions", true,
-										   OnDetectionSettingChanged};
-		CConVar<bool> desubtickingEnabled {"cs2ac_desubticking_enabled", FCVAR_NONE, "Detect commands that remove normal subtick timing", true,
-										   OnDetectionSettingChanged};
-		CConVar<bool> doubletapEnabled {"cs2ac_doubletap_enabled", FCVAR_NONE, "Detect impossible rapid fire", true, OnDetectionSettingChanged};
-		CConVar<bool> hyperscrollEnabled {"cs2ac_hyperscroll_enabled", FCVAR_NONE, "Detect automated jump-input frequency", true,
+		CConVar<int32> aimlockEnabled {"cs2ac_aimlock_enabled",  FCVAR_NONE, "0=off, 1=website report, 2=punish", 0, true, 0, true, 2,
+									   OnDetectionSettingChanged};
+		CConVar<int32> antiaimEnabled {"cs2ac_antiaim_enabled",  FCVAR_NONE, "0=off, 1=website report, 2=punish", 0, true, 0, true, 2,
+									   OnDetectionSettingChanged};
+		CConVar<int32> autostrafeEnabled {"cs2ac_autostrafe_enabled", FCVAR_NONE, "0=off, 1=website report, 2=punish", 0, true, 0, true, 2,
 										  OnDetectionSettingChanged};
-		CConVar<bool> inhumanAccuracyEnabled {"cs2ac_inhuman_accuracy_enabled", FCVAR_NONE, "Detect sustained near-perfect accuracy", true,
-											  OnDetectionSettingChanged};
-		CConVar<bool> invalidCvarEnabled {"cs2ac_invalid_cvar_enabled", FCVAR_NONE, "Detect unsafe client settings", true, OnDetectionSettingChanged};
-		CConVar<bool> invalidInputEnabled {"cs2ac_invalid_input_enabled", FCVAR_NONE,
-										   "Detect movement button changes without matching subtick records", true, OnDetectionSettingChanged};
-		CConVar<bool> irregularBehaviorEnabled {"cs2ac_irregular_behavior_enabled", FCVAR_NONE,
-												"Detect repeated success with unusually difficult shots", true, OnDetectionSettingChanged};
-		CConVar<bool> namechangerEnabled {"cs2ac_namechanger_enabled", FCVAR_NONE, "Detect repeated player name changes", true,
-										  OnDetectionSettingChanged};
-		CConVar<bool> nullsEnabled {"cs2ac_nulls_enabled", FCVAR_NONE, "Detect mechanically perfect airborne opposite-direction switches", true,
+		CConVar<int32> bhopEnabled {"cs2ac_bhop_enabled",     FCVAR_NONE, "0=off, 1=website report, 2=punish", 0, true, 0, true, 2,
 									OnDetectionSettingChanged};
-		CConVar<bool> silentaimEnabled {"cs2ac_silentaim_enabled", FCVAR_NONE, "Detect damaging shots that disagree with the visible aim", true,
-										OnDetectionSettingChanged};
-		CConVar<bool> subtickSpamEnabled {"cs2ac_subtick_spam_enabled", FCVAR_NONE,
-										  "Detect repeated same-time button aliases carrying pitch or yaw changes", true, OnDetectionSettingChanged};
+		CConVar<int32> dllInjectionEnabled {"cs2ac_dll_injection_enabled", FCVAR_NONE, "0=off, 1=website report, 2=punish", 0, true, 0, true, 2,
+											OnDetectionSettingChanged};
+		CConVar<int32> desubtickingEnabled {"cs2ac_desubticking_enabled", FCVAR_NONE, "0=off, 1=website report, 2=punish", 1, true, 0, true, 2,
+											OnDetectionSettingChanged};
+		CConVar<int32> doubletapEnabled {"cs2ac_doubletap_enabled", FCVAR_NONE, "0=off, 1=website report, 2=punish", 1, true, 0, true, 2,
+										 OnDetectionSettingChanged};
+		CConVar<int32> hyperscrollEnabled {"cs2ac_hyperscroll_enabled", FCVAR_NONE, "0=off, 1=website report, 2=punish", 0, true, 0, true, 2,
+										   OnDetectionSettingChanged};
+		CConVar<int32> inhumanAccuracyEnabled {"cs2ac_inhuman_accuracy_enabled", FCVAR_NONE, "0=off, 1=website report, 2=punish", 0, true, 0, true, 2,
+											   OnDetectionSettingChanged};
+		CConVar<int32> invalidCvarEnabled {"cs2ac_invalid_cvar_enabled", FCVAR_NONE, "0=off, 1=website report, 2=punish", 1, true, 0, true, 2,
+										   OnDetectionSettingChanged};
+		CConVar<int32> invalidInputEnabled {"cs2ac_invalid_input_enabled", FCVAR_NONE, "0=off, 1=website report, 2=punish", 0, true, 0, true, 2,
+											OnDetectionSettingChanged};
+		CConVar<int32> irregularBehaviorEnabled {
+			"cs2ac_irregular_behavior_enabled", FCVAR_NONE, "0=off, 1=website report, 2=punish", 0, true, 0, true, 2, OnDetectionSettingChanged};
+		CConVar<int32> namechangerEnabled {"cs2ac_namechanger_enabled", FCVAR_NONE, "0=off, 1=website report, 2=punish", 1, true, 0, true, 2,
+										   OnDetectionSettingChanged};
+		CConVar<int32> nullsEnabled {"cs2ac_nulls_enabled",    FCVAR_NONE, "0=off, 1=website report, 2=punish", 1, true, 0, true, 2,
+									 OnDetectionSettingChanged};
+		CConVar<int32> silentaimEnabled {"cs2ac_silentaim_enabled", FCVAR_NONE, "0=off, 1=website report, 2=punish", 0, true, 0, true, 2,
+										 OnDetectionSettingChanged};
+		CConVar<int32> subtickSpamEnabled {"cs2ac_subtick_spam_enabled", FCVAR_NONE, "0=off, 1=website report, 2=punish", 1, true, 0, true, 2,
+										   OnDetectionSettingChanged};
 		CConVar<bool> chatAnnouncements {"cs2ac_chat_announcements", FCVAR_NONE, "Show CS2AC detections in public chat", true};
 		CConVar<bool> centerAnnouncements {"cs2ac_center_announcements", FCVAR_NONE, "Show CS2AC detections in the center of the screen", true};
 		CConVar<CUtlString> punishmentCommand {"cs2ac_punishment_command", FCVAR_NONE, "Command run for permanent-ban detections",
@@ -114,6 +125,8 @@ namespace
 												  CUtlString("")};
 		CConVar<CUtlString> webhookLogoUrl {"cs2ac_webhook_logo_url", FCVAR_NONE, "Public HTTPS URL for the logo shown in Discord reports",
 											CUtlString("")};
+		CConVar<CUtlString> reportUrl {"cs2ac_report_url", FCVAR_NONE, "HTTPS endpoint for website reports", CUtlString("")};
+		CConVar<CUtlString> reportSecret {"cs2ac_report_secret", FCVAR_PROTECTED, "Secret used to authenticate website reports", CUtlString("")};
 		CConVar<CUtlString> language {"cs2ac_language", FCVAR_NONE, "Language used for public messages and Discord reports", CUtlString("en")};
 		CConVar<CUtlString> whitelist {"cs2ac_whitelist", FCVAR_NONE, "SteamID64s that CS2AC may detect but never punish", CUtlString(""),
 									   OnWhitelistChanged};
@@ -121,7 +134,7 @@ namespace
 
 	Configuration *configuration {};
 
-	bool DetectionSetting(DetectionType detection)
+	int32 DetectionSetting(DetectionType detection)
 	{
 		if (!configuration)
 		{
@@ -130,39 +143,39 @@ namespace
 		switch (detection)
 		{
 			case DetectionType::Aimbot:
-				return configuration->aimbotEnabled.GetBool();
+				return configuration->aimbotEnabled.Get();
 			case DetectionType::Aimlock:
-				return configuration->aimlockEnabled.GetBool();
+				return configuration->aimlockEnabled.Get();
 			case DetectionType::AntiAim:
-				return configuration->antiaimEnabled.GetBool();
+				return configuration->antiaimEnabled.Get();
 			case DetectionType::Autostrafe:
-				return configuration->autostrafeEnabled.GetBool();
+				return configuration->autostrafeEnabled.Get();
 			case DetectionType::Bhop:
-				return configuration->bhopEnabled.GetBool();
+				return configuration->bhopEnabled.Get();
 			case DetectionType::DllInjection:
-				return configuration->dllInjectionEnabled.GetBool();
+				return configuration->dllInjectionEnabled.Get();
 			case DetectionType::Desubticking:
-				return configuration->desubtickingEnabled.GetBool();
+				return configuration->desubtickingEnabled.Get();
 			case DetectionType::Doubletap:
-				return configuration->doubletapEnabled.GetBool();
+				return configuration->doubletapEnabled.Get();
 			case DetectionType::Hyperscroll:
-				return configuration->hyperscrollEnabled.GetBool();
+				return configuration->hyperscrollEnabled.Get();
 			case DetectionType::InhumanAccuracy:
-				return configuration->inhumanAccuracyEnabled.GetBool();
+				return configuration->inhumanAccuracyEnabled.Get();
 			case DetectionType::InvalidCvar:
-				return configuration->invalidCvarEnabled.GetBool();
+				return configuration->invalidCvarEnabled.Get();
 			case DetectionType::InvalidInput:
-				return configuration->invalidInputEnabled.GetBool();
+				return configuration->invalidInputEnabled.Get();
 			case DetectionType::IrregularBehavior:
-				return configuration->irregularBehaviorEnabled.GetBool();
+				return configuration->irregularBehaviorEnabled.Get();
 			case DetectionType::NameChanger:
-				return configuration->namechangerEnabled.GetBool();
+				return configuration->namechangerEnabled.Get();
 			case DetectionType::Nulls:
-				return configuration->nullsEnabled.GetBool();
+				return configuration->nullsEnabled.Get();
 			case DetectionType::SilentAim:
-				return configuration->silentaimEnabled.GetBool();
+				return configuration->silentaimEnabled.Get();
 			case DetectionType::SubtickSpam:
-				return configuration->subtickSpamEnabled.GetBool();
+				return configuration->subtickSpamEnabled.Get();
 			case DetectionType::Count:
 				return false;
 		}
@@ -202,6 +215,20 @@ bool settings::IsDetectionEnabled(DetectionType detection)
 {
 	const auto index = static_cast<std::uint8_t>(detection);
 	return index < static_cast<std::uint8_t>(DetectionType::Count) && (GetDetectionMask() & (std::uint64_t {1} << index)) != 0;
+}
+
+DetectionMode settings::GetDetectionMode(DetectionType detection)
+{
+	const int32 mode = DetectionSetting(detection);
+	if (mode <= static_cast<int32>(DetectionMode::Disabled))
+	{
+		return DetectionMode::Disabled;
+	}
+	if (mode >= static_cast<int32>(DetectionMode::Punish))
+	{
+		return DetectionMode::Punish;
+	}
+	return DetectionMode::Report;
 }
 
 bool settings::IsPlayerWhitelisted(std::uint64_t steamId)
@@ -302,6 +329,16 @@ const char *settings::GetWebhookServerAddress()
 const char *settings::GetWebhookLogoUrl()
 {
 	return configuration ? configuration->webhookLogoUrl.Get().Get() : "";
+}
+
+const char *settings::GetReportUrl()
+{
+	return configuration ? configuration->reportUrl.Get().Get() : "";
+}
+
+const char *settings::GetReportSecret()
+{
+	return configuration ? configuration->reportSecret.Get().Get() : "";
 }
 
 const char *settings::GetLanguage()

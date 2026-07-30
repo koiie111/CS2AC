@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", ali je komanda za kaznu preduga."
 	"announcement.outcome.command_service_unavailable"	", ali servis serverskih komandi nije dostupan."
 	"announcement.outcome.network_unstable"	", ali kazna nije poslata jer je veza bila nestabilna."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"Ovo je test. Nijedan igrač nije otkriven niti kažnjen."
 
 	"evidence.aimbot.snap_return"	"Prag je dostignut nakon {incidents} naglih nišanjenja sa pogotkom; poslednje je bilo vraćanje od {snap}°."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"Kazna nije poslata jer je podešena komanda preduga."
 	"webhook.outcome.command_service_unavailable"	"Kazna nije poslata jer servis serverskih komandi nije dostupan."
 	"webhook.outcome.network_unstable"	"Kazna nije poslata jer je veza igrača prešla bezbedne mrežne granice."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"Ishod kazne nije bio dostupan."
 	"webhook.unknown_player"	"Nepoznat igrač"
 	"webhook.unknown_detection"	"NEPOZNATO"

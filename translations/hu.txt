@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", de a büntetési parancs túl hosszú."
 	"announcement.outcome.command_service_unavailable"	", de a szerver parancsszolgáltatása nem érhető el."
 	"announcement.outcome.network_unstable"	", de az instabil kapcsolata miatt nem lett büntetés elküldve."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"Ez egy teszt. Egyetlen játékos sem lett észlelve vagy megbüntetve."
 
 	"evidence.aimbot.snap_return"	"A küszöböt {incidents} hirtelen, találattal végződő célzás érte el; a legutóbbi {snap}°-os visszatérés volt."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"Nem lett büntetés elküldve, mert a beállított parancs túl hosszú."
 	"webhook.outcome.command_service_unavailable"	"Nem lett büntetés elküldve, mert a szerver parancsszolgáltatása nem érhető el."
 	"webhook.outcome.network_unstable"	"Nem lett büntetés elküldve, mert a játékos kapcsolata túllépte a biztonságos hálózati határokat."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"Nem állt rendelkezésre büntetési eredmény."
 	"webhook.unknown_player"	"Ismeretlen játékos"
 	"webhook.unknown_detection"	"ISMERETLEN"

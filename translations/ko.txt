@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", 하지만 처벌 명령이 너무 깁니다."
 	"announcement.outcome.command_service_unavailable"	", 하지만 서버 명령 서비스를 사용할 수 없습니다."
 	"announcement.outcome.network_unstable"	", 하지만 연결이 불안정해 처벌을 전송하지 않았습니다."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"테스트 메시지입니다. 감지되거나 처벌된 플레이어는 없습니다."
 
 	"evidence.aimbot.snap_return"	"급격한 조준 후 명중이 {incidents}회로 기준에 도달했습니다. 최근 기록은 {snap}° 스냅 복귀였습니다."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"설정된 명령이 너무 길어 처벌을 전송하지 않았습니다."
 	"webhook.outcome.command_service_unavailable"	"서버 명령 서비스를 사용할 수 없어 처벌을 전송하지 않았습니다."
 	"webhook.outcome.network_unstable"	"플레이어의 연결이 안전한 네트워크 제한을 초과해 처벌을 전송하지 않았습니다."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"사용 가능한 처벌 결과가 없습니다."
 	"webhook.unknown_player"	"알 수 없는 플레이어"
 	"webhook.unknown_detection"	"알 수 없음"

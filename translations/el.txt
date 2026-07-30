@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", αλλά η εντολή ποινής είναι πολύ μεγάλη."
 	"announcement.outcome.command_service_unavailable"	", αλλά η υπηρεσία εντολών του διακομιστή δεν είναι διαθέσιμη."
 	"announcement.outcome.network_unstable"	", αλλά δεν στάλθηκε ποινή επειδή η σύνδεσή του ήταν ασταθής."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"Αυτό είναι δοκιμή. Κανένας παίκτης δεν εντοπίστηκε ή τιμωρήθηκε."
 
 	"evidence.aimbot.snap_return"	"Το όριο έφτασε μετά από {incidents} απότομες κινήσεις στόχευσης με εύστοχη βολή· η τελευταία ήταν επιστροφή {snap}°."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"Δεν στάλθηκε ποινή επειδή η ρυθμισμένη εντολή είναι πολύ μεγάλη."
 	"webhook.outcome.command_service_unavailable"	"Δεν στάλθηκε ποινή επειδή η υπηρεσία εντολών του διακομιστή δεν είναι διαθέσιμη."
 	"webhook.outcome.network_unstable"	"Δεν στάλθηκε ποινή επειδή η σύνδεση του παίκτη ξεπέρασε τα ασφαλή όρια δικτύου."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"Δεν υπήρχε διαθέσιμο αποτέλεσμα ποινής."
 	"webhook.unknown_player"	"Άγνωστος παίκτης"
 	"webhook.unknown_detection"	"ΑΓΝΩΣΤΟ"

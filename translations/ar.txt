@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	"، لكن أمر العقوبة طويل جدًا."
 	"announcement.outcome.command_service_unavailable"	"، لكن خدمة أوامر الخادم غير متاحة."
 	"announcement.outcome.network_unstable"	"، لكن لم تُرسل أي عقوبة لأن اتصال اللاعب كان غير مستقر."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"هذا اختبار. لم يتم اكتشاف أي لاعب أو معاقبته."
 
 	"evidence.aimbot.snap_return"	"تم بلوغ الحد بعد {incidents} حركات تصويب مفاجئة مع إصابة؛ وكانت الأخيرة عودة بمقدار {snap}°."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"لم يتم إرسال عقوبة لأن الأمر المضبوط طويل جدًا."
 	"webhook.outcome.command_service_unavailable"	"لم يتم إرسال عقوبة لأن خدمة أوامر الخادم غير متاحة."
 	"webhook.outcome.network_unstable"	"لم تُرسل أي عقوبة لأن اتصال اللاعب تجاوز حدود الشبكة الآمنة."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"لم تتوفر نتيجة للعقوبة."
 	"webhook.unknown_player"	"لاعب غير معروف"
 	"webhook.unknown_detection"	"غير معروف"

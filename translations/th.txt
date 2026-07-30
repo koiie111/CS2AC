@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	" แต่คำสั่งลงโทษยาวเกินไป"
 	"announcement.outcome.command_service_unavailable"	" แต่บริการคำสั่งของเซิร์ฟเวอร์ไม่พร้อมใช้งาน"
 	"announcement.outcome.network_unstable"	" แต่ไม่มีการส่งบทลงโทษเนื่องจากการเชื่อมต่อไม่เสถียร"
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"นี่คือข้อความทดสอบ ไม่มีผู้เล่นถูกตรวจพบหรือลงโทษ"
 
 	"evidence.aimbot.snap_return"	"ถึงเกณฑ์หลังพบการสะบัดเป้าและยิงโดน {incidents} ครั้ง โดยครั้งล่าสุดสะบัดกลับ {snap}°"
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"ไม่ได้ส่งการลงโทษเพราะคำสั่งที่ตั้งค่าไว้ยาวเกินไป"
 	"webhook.outcome.command_service_unavailable"	"ไม่ได้ส่งการลงโทษเพราะบริการคำสั่งของเซิร์ฟเวอร์ไม่พร้อมใช้งาน"
 	"webhook.outcome.network_unstable"	"ไม่ได้ส่งการลงโทษเพราะการเชื่อมต่อของผู้เล่นเกินขีดจำกัดเครือข่ายที่ปลอดภัย"
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"ไม่มีผลการลงโทษ"
 	"webhook.unknown_player"	"ผู้เล่นไม่ทราบชื่อ"
 	"webhook.unknown_detection"	"ไม่ทราบ"

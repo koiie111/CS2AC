@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", aber der Strafbefehl ist zu lang."
 	"announcement.outcome.command_service_unavailable"	", aber der Server-Befehlsdienst ist nicht verfügbar."
 	"announcement.outcome.network_unstable"	", aber wegen der instabilen Verbindung wurde keine Strafe gesendet."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"Dies ist ein Test. Kein Spieler wurde erkannt oder bestraft."
 
 	"evidence.aimbot.snap_return"	"Der Schwellenwert wurde nach {incidents} abrupten Zielbewegungen mit Treffer erreicht; zuletzt erfolgte eine Rückkehr um {snap}°."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"Es wurde keine Strafe gesendet, da der konfigurierte Befehl zu lang ist."
 	"webhook.outcome.command_service_unavailable"	"Es wurde keine Strafe gesendet, da der Server-Befehlsdienst nicht verfügbar ist."
 	"webhook.outcome.network_unstable"	"Es wurde keine Strafe gesendet, weil die Verbindung des Spielers die sicheren Netzwerkgrenzen überschritten hat."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"Kein Ergebnis der Bestrafung verfügbar."
 	"webhook.unknown_player"	"Unbekannter Spieler"
 	"webhook.unknown_detection"	"UNBEKANNT"

@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	"が、処罰コマンドが長すぎます。"
 	"announcement.outcome.command_service_unavailable"	"が、サーバーのコマンドサービスを利用できません。"
 	"announcement.outcome.network_unstable"	"が、接続が不安定だったため処罰は送信されませんでした。"
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"これはテストです。プレイヤーの検出や処罰は行われていません。"
 
 	"evidence.aimbot.snap_return"	"急な照準移動と命中が {incidents} 件に達しました。直近は {snap}° のスナップ復帰でした。"
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"設定されたコマンドが長すぎるため、処罰は送信されませんでした。"
 	"webhook.outcome.command_service_unavailable"	"サーバーのコマンドサービスを利用できないため、処罰は送信されませんでした。"
 	"webhook.outcome.network_unstable"	"プレイヤーの接続が安全なネットワーク制限を超えたため、処罰は送信されませんでした。"
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"処罰結果を取得できませんでした。"
 	"webhook.unknown_player"	"不明なプレイヤー"
 	"webhook.unknown_detection"	"不明"

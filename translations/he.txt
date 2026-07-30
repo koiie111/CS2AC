@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", אבל פקודת הענישה ארוכה מדי."
 	"announcement.outcome.command_service_unavailable"	", אבל שירות פקודות השרת אינו זמין."
 	"announcement.outcome.network_unstable"	", אבל לא נשלח עונש משום שהחיבור שלו היה לא יציב."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"זוהי בדיקה. אף שחקן לא זוהה או נענש."
 
 	"evidence.aimbot.snap_return"	"הסף הושג לאחר {incidents} תנועות כוונת חדות עם פגיעה; האחרונה הייתה חזרה של {snap}°."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"לא נשלח עונש משום שהפקודה שהוגדרה ארוכה מדי."
 	"webhook.outcome.command_service_unavailable"	"לא נשלח עונש משום ששירות פקודות השרת אינו זמין."
 	"webhook.outcome.network_unstable"	"לא נשלח עונש משום שחיבור השחקן חרג מגבולות הרשת הבטוחים."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"לא הייתה תוצאת ענישה זמינה."
 	"webhook.unknown_player"	"שחקן לא ידוע"
 	"webhook.unknown_detection"	"לא ידוע"

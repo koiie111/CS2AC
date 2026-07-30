@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	"，但處罰指令過長。"
 	"announcement.outcome.command_service_unavailable"	"，但伺服器指令服務無法使用。"
 	"announcement.outcome.network_unstable"	"，但由於網路連線不穩定，未執行處罰。"
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"這是一則測試訊息。沒有玩家被偵測或處罰。"
 
 	"evidence.aimbot.snap_return"	"{incidents} 次急轉命中達到門檻；最近一次為 {snap}° 的急轉回正。"
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"設定的指令過長，因此未送出處罰。"
 	"webhook.outcome.command_service_unavailable"	"伺服器指令服務無法使用，因此未送出處罰。"
 	"webhook.outcome.network_unstable"	"玩家的連線超過安全網路限制，因此未執行處罰。"
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"沒有可用的處罰結果。"
 	"webhook.unknown_player"	"未知玩家"
 	"webhook.unknown_detection"	"未知"

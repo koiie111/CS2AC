@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", tetapi perintah hukuman terlalu panjang."
 	"announcement.outcome.command_service_unavailable"	", tetapi layanan perintah server tidak tersedia."
 	"announcement.outcome.network_unstable"	", tetapi hukuman tidak dikirim karena koneksinya tidak stabil."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"Ini adalah tes. Tidak ada pemain yang terdeteksi atau dihukum."
 
 	"evidence.aimbot.snap_return"	"Ambang tercapai setelah {incidents} gerakan bidik mendadak yang mengenai sasaran; yang terakhir adalah gerakan kembali sebesar {snap}°."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"Hukuman tidak dikirim karena perintah yang dikonfigurasi terlalu panjang."
 	"webhook.outcome.command_service_unavailable"	"Hukuman tidak dikirim karena layanan perintah server tidak tersedia."
 	"webhook.outcome.network_unstable"	"Hukuman tidak dikirim karena koneksi pemain melewati batas jaringan yang aman."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"Tidak ada hasil hukuman yang tersedia."
 	"webhook.unknown_player"	"Pemain tidak dikenal"
 	"webhook.unknown_detection"	"TIDAK DIKENAL"

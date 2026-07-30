@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", ancak ceza komutu çok uzun."
 	"announcement.outcome.command_service_unavailable"	", ancak sunucu komut hizmeti kullanılamıyor."
 	"announcement.outcome.network_unstable"	", ancak bağlantısı kararsız olduğu için ceza gönderilmedi."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"Bu bir testtir. Hiçbir oyuncu tespit edilmedi veya cezalandırılmadı."
 
 	"evidence.aimbot.snap_return"	"{incidents} ani nişan-isabet olayı eşiğe ulaştı; son olay {snap} derecelik ani dönüşlü nişandı."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"Yapılandırılmış komut çok uzun olduğu için ceza gönderilmedi."
 	"webhook.outcome.command_service_unavailable"	"Sunucu komut hizmeti kullanılamadığı için ceza gönderilmedi."
 	"webhook.outcome.network_unstable"	"Oyuncunun bağlantısı güvenli ağ sınırlarını aştığı için ceza gönderilmedi."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"Ceza sonucu bilgisi bulunamadı."
 	"webhook.unknown_player"	"Bilinmeyen oyuncu"
 	"webhook.unknown_detection"	"BİLİNMİYOR"

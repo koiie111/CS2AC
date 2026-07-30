@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", but the punishment command is too long."
 	"announcement.outcome.command_service_unavailable"	", but the server command service is unavailable."
 	"announcement.outcome.network_unstable"	", but no punishment was sent because their connection was unstable."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"This is a test. No player was detected or punished."
 
 	"evidence.aimbot.snap_return"	"{incidents} snap-hit incidents reached the threshold; the latest was a {snap}-degree snap-return."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"No punishment was sent because the configured command is too long."
 	"webhook.outcome.command_service_unavailable"	"No punishment was sent because the server command service is unavailable."
 	"webhook.outcome.network_unstable"	"No punishment was sent because the player's connection exceeded the safe network limits."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"No punishment outcome was available."
 	"webhook.unknown_player"	"Unknown player"
 	"webhook.unknown_detection"	"UNKNOWN"

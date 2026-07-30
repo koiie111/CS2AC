@@ -35,6 +35,8 @@ namespace utils
 		CommandTooLong,
 		CommandServiceUnavailable,
 		NetworkUnstable,
+		WebsiteReportQueued,
+		WebsiteReportUnavailable,
 	};
 
 	void Initialize(std::vector<std::string> &missing);

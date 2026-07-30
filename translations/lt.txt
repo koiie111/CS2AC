@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", bet bausmės komanda per ilga."
 	"announcement.outcome.command_service_unavailable"	", bet serverio komandų paslauga nepasiekiama."
 	"announcement.outcome.network_unstable"	", bet bausmė neišsiųsta, nes ryšys buvo nestabilus."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"Tai yra testas. Joks žaidėjas nebuvo aptiktas ar nubaustas."
 
 	"evidence.aimbot.snap_return"	"Slenkstis pasiektas po {incidents} staigių taikymų su pataikymu; paskutinis buvo {snap}° grįžimas."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"Bausmė neišsiųsta, nes sukonfigūruota komanda per ilga."
 	"webhook.outcome.command_service_unavailable"	"Bausmė neišsiųsta, nes serverio komandų paslauga nepasiekiama."
 	"webhook.outcome.network_unstable"	"Bausmė neišsiųsta, nes žaidėjo ryšys viršijo saugias tinklo ribas."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"Bausmės rezultatas nebuvo pasiekiamas."
 	"webhook.unknown_player"	"Nežinomas žaidėjas"
 	"webhook.unknown_detection"	"NEŽINOMA"
