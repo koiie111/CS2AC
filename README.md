@@ -299,19 +299,6 @@ Yes. When `mp_teammates_are_enemies` is enabled, CS2AC treats other players as e
 
 </details>
 
-<details>
-<summary><strong>Does CS2AC advertise itself?</strong></summary>
-
-Yes, but it does not spam. Every six completed rounds, CS2AC shows this message once in chat and at the center of the screen:
-
-```text
-[CS2AC] This server is protected by karola3vax's anti-cheat.
-```
-
-This small project credit is built in and cannot be turned off.
-
-</details>
-
 ## Want wallhack protection too?
 
 **CS2AC catches cheating behavior. [CS2FOW](https://github.com/karola3vax/CS2FOW) stops your server from sending live enemy positions through solid walls and smoke.**

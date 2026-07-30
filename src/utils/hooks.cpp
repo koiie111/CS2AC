@@ -42,8 +42,6 @@ namespace
 	};
 
 	std::vector<PendingGameEvent> pendingGameEvents;
-	constexpr unsigned watermarkRoundInterval = 6;
-	unsigned completedRounds {};
 	bool AddTeleportHook(MovementPlayer *player);
 
 	bool IsConsumedEvent(IGameEvent *event)
@@ -121,10 +119,6 @@ namespace
 		}
 		if (pending.event)
 		{
-			if (CS2AC_STREQ(pending.event->GetName(), "round_end") && ++completedRounds % watermarkRoundInterval == 0)
-			{
-				utils::AnnounceWatermark();
-			}
 			g_CS2AC.OnGameEvent(pending.event, pending.player);
 			if (CS2AC_STREQ(pending.event->GetName(), "player_spawn") && pending.player)
 			{
@@ -320,7 +314,6 @@ void hooks::HookActivePlayers()
 
 bool hooks::ResetMap()
 {
-	completedRounds = 0;
 	bool removed = true;
 	for (i32 slot = 0; slot < MAXPLAYERS; ++slot)
 	{
