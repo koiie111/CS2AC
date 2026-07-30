@@ -114,6 +114,11 @@ namespace
 			case utils::DetectionOutcome::NetworkUnstable:
 				return localization::Get("webhook.outcome.network_unstable",
 										 "No punishment was sent because the player's connection exceeded the safe network limits.");
+			case utils::DetectionOutcome::WebsiteReportQueued:
+				return localization::Get("webhook.outcome.website_report_queued", "No punishment was sent; a website report was queued for review.");
+			case utils::DetectionOutcome::WebsiteReportUnavailable:
+				return localization::Get("webhook.outcome.website_report_unavailable",
+										 "No punishment was sent; the website report service is not configured.");
 		}
 		return localization::Get("webhook.outcome.unavailable", "No punishment outcome was available.");
 	}

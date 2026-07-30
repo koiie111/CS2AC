@@ -4,8 +4,8 @@
 
 ### Open-source server-side anti-cheat for Counter-Strike 2.
 
-[![Build](https://img.shields.io/github/actions/workflow/status/karola3vax/CS2AC/build.yml?branch=main&style=for-the-badge&label=build)](https://github.com/karola3vax/CS2AC/actions/workflows/build.yml)
-[![Version](https://img.shields.io/badge/version-1.0.8-blue?style=for-the-badge)](https://github.com/karola3vax/CS2AC)
+[![Build](https://img.shields.io/github/actions/workflow/status/koiie111/CS2AC/build.yml?branch=main&style=for-the-badge&label=build)](https://github.com/koiie111/CS2AC/actions/workflows/build.yml)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue?style=for-the-badge)](https://github.com/koiie111/CS2AC)
 [![Detections](https://img.shields.io/badge/detections-17-red?style=for-the-badge)](#the-seventeen-detection-modules)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-5c7cfa?style=for-the-badge)](#quickstart)
 [![License](https://img.shields.io/badge/license-AGPL--3.0-2ea44f?style=for-the-badge)](LICENSE)
@@ -176,7 +176,7 @@ The included [`cs2ac.cfg`](cfg/cs2ac.cfg) explains every option in plain languag
 | --- | ---: | --- |
 | `cs2ac_enabled` | `1` | Master switch for CS2AC. |
 | `cs2ac_whitelist` | empty | SteamID64s that may be detected but must never be punished. |
-| `cs2ac_*_enabled` | `1` | Enable or disable one detection module. |
+| `cs2ac_*_enabled` | varies | `0` disables detection, `1` sends a website report, and `2` applies the configured punishment. |
 | `cs2ac_chat_announcements` | `1` | Show detections in public chat. |
 | `cs2ac_center_announcements` | `1` | Show the five-second center alert. |
 | `cs2ac_language` | `en` | Language used for public messages and Discord reports. |
@@ -185,6 +185,8 @@ The included [`cs2ac.cfg`](cfg/cs2ac.cfg) explains every option in plain languag
 | `cs2ac_webhook_url` | empty | Discord webhook that receives detection reports. |
 | `cs2ac_webhook_role_id` | empty | Discord role to mention on a report. |
 | `cs2ac_webhook_server_address` | automatic | Server address shown in Discord. |
+| `cs2ac_report_url` | empty | HTTPS endpoint that receives asynchronous mode-1 reports. |
+| `cs2ac_report_secret` | empty | Secret matched against the website server's `servers_web.report_key`. |
 | `cs2ac_allow_sv_cheats_testing` | `0` | Allow local detector testing with `sv_cheats 1`. Never enable this on a public server. |
 
 Punishment commands support `{steamid64}`, `{userid}`, and `{detection}`:
@@ -203,6 +205,24 @@ cs2ac_whitelist "76561198000000001,76561198000000002"
 Set `cs2ac_language` to one of the bundled language codes, then run `cs2ac_reload`:
 
 `ar`, `bg`, `cs`, `da`, `de`, `el`, `en`, `es-419`, `es-es`, `et`, `fi`, `fr`, `he`, `hr`, `hu`, `id`, `it`, `ja`, `ko`, `lt`, `lv`, `nl`, `no`, `pl`, `pt-br`, `pt-pt`, `ro`, `ru`, `sk`, `sr`, `sv`, `th`, `tr`, `uk`, `vi`, `zh-cn`, `zh-tw`.
+
+### Website reports
+
+Detection settings accept three modes:
+
+- `0`: detector disabled.
+- `1`: detection is announced and queued for the website, with no kick or ban.
+- `2`: the original punishment behavior is used.
+
+Configure the existing report system endpoint and the server's report key:
+
+```cfg
+cs2ac_report_url "https://example.com/php/api/send_cs2ac_report.php"
+cs2ac_report_secret "the servers_web.report_key value"
+```
+
+Website and Discord requests use Steam's asynchronous HTTP API. Both paths have bounded queues, short timeouts, and one retry, so slow or unavailable
+network services do not block the game thread.
 
 ### Discord in four steps
 
@@ -257,7 +277,7 @@ Despite the name, **DLL Injection does not scan anyone's PC**. It only checks su
 </details>
 
 <details>
-<summary><strong>Which detections ban and which only kick?</strong></summary>
+<summary><strong>Which mode-2 detections ban and which only kick?</strong></summary>
 
 By default, Desubticking, Nulls, and Subtick Spam only kick. Every other detection uses the permanent-ban command.
 

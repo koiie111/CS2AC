@@ -7,6 +7,7 @@
 #include "version_gen.h"
 
 class WebhookService;
+class SiteReportService;
 class CMsgTEFireBullets;
 
 class CS2ACPlugin final : public ISmmPlugin, public IMetamodListener
@@ -111,6 +112,7 @@ private:
 	std::string activationError;
 	detection::DetectionSystem detectionSystem;
 	WebhookService *webhook {};
+	SiteReportService *siteReport {};
 	std::array<PunishmentLevel, MAXPLAYERS + 1> punishmentLevels {};
 };
 

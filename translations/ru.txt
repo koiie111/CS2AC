@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", но команда наказания слишком длинная."
 	"announcement.outcome.command_service_unavailable"	", но служба серверных команд недоступна."
 	"announcement.outcome.network_unstable"	", но наказание не отправлено из-за нестабильного соединения."
+	"announcement.outcome.website_report_queued"	" и поставил репорт на сайт в очередь для проверки."
+	"announcement.outcome.website_report_unavailable"	", но отправка репортов на сайт не настроена."
 	"announcement.test"	"Это тест. Ни один игрок не был обнаружен или наказан."
 
 	"evidence.aimbot.snap_return"	"Порог достигнут после {incidents} резких доводок с попаданием; последняя была возвратом на {snap}°."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"Наказание не отправлено, потому что настроенная команда слишком длинная."
 	"webhook.outcome.command_service_unavailable"	"Наказание не отправлено, потому что служба серверных команд недоступна."
 	"webhook.outcome.network_unstable"	"Наказание не отправлено, потому что соединение игрока превысило безопасные сетевые пределы."
+	"webhook.outcome.website_report_queued"	"Наказание не отправлено; репорт на сайт поставлен в очередь для проверки."
+	"webhook.outcome.website_report_unavailable"	"Наказание не отправлено; отправка репортов на сайт не настроена."
 	"webhook.outcome.unavailable"	"Результат наказания недоступен."
 	"webhook.unknown_player"	"Неизвестный игрок"
 	"webhook.unknown_detection"	"НЕИЗВЕСТНО"

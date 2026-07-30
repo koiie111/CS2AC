@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", но командата за наказание е твърде дълга."
 	"announcement.outcome.command_service_unavailable"	", но услугата за сървърни команди не е налична."
 	"announcement.outcome.network_unstable"	", но не беше изпратено наказание, защото връзката му беше нестабилна."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"Това е тест. Няма засечен или наказан играч."
 
 	"evidence.aimbot.snap_return"	"Прагът беше достигнат след {incidents} резки насочвания с попадение; последното беше връщане с {snap}°."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"Не беше изпратено наказание, защото настроената команда е твърде дълга."
 	"webhook.outcome.command_service_unavailable"	"Не беше изпратено наказание, защото услугата за сървърни команди не е налична."
 	"webhook.outcome.network_unstable"	"Не беше изпратено наказание, защото връзката на играча надхвърли безопасните мрежови граници."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"Няма наличен резултат за наказанието."
 	"webhook.unknown_player"	"Неизвестен играч"
 	"webhook.unknown_detection"	"НЕИЗВЕСТНО"

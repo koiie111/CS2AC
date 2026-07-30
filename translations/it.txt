@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", ma il comando di punizione è troppo lungo."
 	"announcement.outcome.command_service_unavailable"	", ma il servizio comandi del server non è disponibile."
 	"announcement.outcome.network_unstable"	", ma non è stata inviata alcuna punizione perché la connessione era instabile."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"Questo è un test. Nessun giocatore è stato rilevato o punito."
 
 	"evidence.aimbot.snap_return"	"La soglia è stata raggiunta dopo {incidents} movimenti bruschi con colpo a segno; l'ultimo è stato un ritorno di {snap}°."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"Non è stata inviata alcuna punizione perché il comando configurato è troppo lungo."
 	"webhook.outcome.command_service_unavailable"	"Non è stata inviata alcuna punizione perché il servizio comandi del server non è disponibile."
 	"webhook.outcome.network_unstable"	"Non è stata inviata alcuna punizione perché la connessione del giocatore ha superato i limiti di rete sicuri."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"Nessun esito di punizione disponibile."
 	"webhook.unknown_player"	"Giocatore sconosciuto"
 	"webhook.unknown_detection"	"SCONOSCIUTO"

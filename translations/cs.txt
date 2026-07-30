@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", ale příkaz trestu je příliš dlouhý."
 	"announcement.outcome.command_service_unavailable"	", ale služba serverových příkazů není dostupná."
 	"announcement.outcome.network_unstable"	", ale trest nebyl odeslán, protože jeho připojení bylo nestabilní."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"Toto je test. Žádný hráč nebyl odhalen ani potrestán."
 
 	"evidence.aimbot.snap_return"	"Prahu bylo dosaženo po {incidents} prudkých zamířeních se zásahem; poslední byl návrat o {snap}°."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"Trest nebyl odeslán, protože nastavený příkaz je příliš dlouhý."
 	"webhook.outcome.command_service_unavailable"	"Trest nebyl odeslán, protože služba serverových příkazů není dostupná."
 	"webhook.outcome.network_unstable"	"Trest nebyl odeslán, protože připojení hráče překročilo bezpečné síťové limity."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"Výsledek trestu nebyl dostupný."
 	"webhook.unknown_player"	"Neznámý hráč"
 	"webhook.unknown_detection"	"NEZNÁMÉ"

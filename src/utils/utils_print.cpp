@@ -353,6 +353,10 @@ static std::string DetectionOutcomeText(utils::DetectionOutcome outcome)
 			return localization::Get("announcement.outcome.command_service_unavailable", ", but the server command service is unavailable.");
 		case utils::DetectionOutcome::NetworkUnstable:
 			return localization::Get("announcement.outcome.network_unstable", ", but no punishment was sent because their connection was unstable.");
+		case utils::DetectionOutcome::WebsiteReportQueued:
+			return localization::Get("announcement.outcome.website_report_queued", " and queued a website report for review.");
+		case utils::DetectionOutcome::WebsiteReportUnavailable:
+			return localization::Get("announcement.outcome.website_report_unavailable", ", but the website report service is not configured.");
 	}
 	return ".";
 }

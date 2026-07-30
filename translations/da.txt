@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", men straffekommandoen er for lang."
 	"announcement.outcome.command_service_unavailable"	", men serverens kommandotjeneste er ikke tilgængelig."
 	"announcement.outcome.network_unstable"	", men der blev ikke sendt en straf, fordi forbindelsen var ustabil."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"Dette er en test. Ingen spiller blev opdaget eller straffet."
 
 	"evidence.aimbot.snap_return"	"Tærsklen blev nået efter {incidents} hurtige sigtebevægelser med træf; den seneste var en retur på {snap}°."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"Der blev ikke sendt en straf, fordi den konfigurerede kommando er for lang."
 	"webhook.outcome.command_service_unavailable"	"Der blev ikke sendt en straf, fordi serverens kommandotjeneste ikke er tilgængelig."
 	"webhook.outcome.network_unstable"	"Der blev ikke sendt en straf, fordi spillerens forbindelse overskred de sikre netværksgrænser."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"Intet strafresultat var tilgængeligt."
 	"webhook.unknown_player"	"Ukendt spiller"
 	"webhook.unknown_detection"	"UKENDT"

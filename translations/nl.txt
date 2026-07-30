@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", maar het strafcommando is te lang."
 	"announcement.outcome.command_service_unavailable"	", maar de servercommandodienst is niet beschikbaar."
 	"announcement.outcome.network_unstable"	", maar er is geen straf verzonden omdat de verbinding instabiel was."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"Dit is een test. Er is geen speler gedetecteerd of gestraft."
 
 	"evidence.aimbot.snap_return"	"De drempel werd bereikt na {incidents} abrupte richtbewegingen met een treffer; de laatste was een terugkeer van {snap}°."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"Er is geen straf verzonden omdat het ingestelde commando te lang is."
 	"webhook.outcome.command_service_unavailable"	"Er is geen straf verzonden omdat de servercommandodienst niet beschikbaar is."
 	"webhook.outcome.network_unstable"	"Er is geen straf verzonden omdat de verbinding van de speler de veilige netwerklimieten overschreed."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"Er was geen strafresultaat beschikbaar."
 	"webhook.unknown_player"	"Onbekende speler"
 	"webhook.unknown_detection"	"ONBEKEND"

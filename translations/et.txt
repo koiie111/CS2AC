@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", kuid karistuskäsk on liiga pikk."
 	"announcement.outcome.command_service_unavailable"	", kuid serveri käsuteenus pole saadaval."
 	"announcement.outcome.network_unstable"	", kuid ebastabiilse ühenduse tõttu karistust ei saadetud."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"See on test. Ühtegi mängijat ei tuvastatud ega karistatud."
 
 	"evidence.aimbot.snap_return"	"Lävi saavutati pärast {incidents} järsku tabamusega sihtimisliigutust; viimane oli {snap}° tagasiliikumine."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"Karistust ei saadetud, sest seadistatud käsk on liiga pikk."
 	"webhook.outcome.command_service_unavailable"	"Karistust ei saadetud, sest serveri käsuteenus pole saadaval."
 	"webhook.outcome.network_unstable"	"Karistust ei saadetud, sest mängija ühendus ületas turvalised võrgupiirid."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"Karistuse tulemus polnud saadaval."
 	"webhook.unknown_player"	"Tundmatu mängija"
 	"webhook.unknown_detection"	"TUNDMATU"

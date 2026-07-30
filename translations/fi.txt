@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", mutta rangaistuskomento on liian pitkä."
 	"announcement.outcome.command_service_unavailable"	", mutta palvelimen komentopalvelu ei ole käytettävissä."
 	"announcement.outcome.network_unstable"	", mutta rangaistusta ei lähetetty epävakaan yhteyden vuoksi."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"Tämä on testi. Ketään pelaajaa ei havaittu tai rangaistu."
 
 	"evidence.aimbot.snap_return"	"Raja saavutettiin {incidents} nopean, osumaan johtaneen tähtäysliikkeen jälkeen; viimeisin oli {snap}°:n palautus."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"Rangaistusta ei lähetetty, koska määritetty komento on liian pitkä."
 	"webhook.outcome.command_service_unavailable"	"Rangaistusta ei lähetetty, koska palvelimen komentopalvelu ei ole käytettävissä."
 	"webhook.outcome.network_unstable"	"Rangaistusta ei lähetetty, koska pelaajan yhteys ylitti turvalliset verkkorajat."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"Rangaistuksen tulosta ei ollut saatavilla."
 	"webhook.unknown_player"	"Tuntematon pelaaja"
 	"webhook.unknown_detection"	"TUNTEMATON"

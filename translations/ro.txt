@@ -9,6 +9,8 @@
 	"announcement.outcome.command_too_long"	", dar comanda de pedeapsă este prea lungă."
 	"announcement.outcome.command_service_unavailable"	", dar serviciul de comenzi al serverului nu este disponibil."
 	"announcement.outcome.network_unstable"	", dar nu a fost trimisă nicio pedeapsă deoarece conexiunea era instabilă."
+	"announcement.outcome.website_report_queued"	" and queued a website report for review."
+	"announcement.outcome.website_report_unavailable"	", but the website report service is not configured."
 	"announcement.test"	"Acesta este un test. Niciun jucător nu a fost detectat sau pedepsit."
 
 	"evidence.aimbot.snap_return"	"Pragul a fost atins după {incidents} mișcări bruște urmate de lovitură; ultima a fost o revenire de {snap}°."
@@ -69,6 +71,8 @@
 	"webhook.outcome.command_too_long"	"Nu a fost trimisă nicio pedeapsă deoarece comanda configurată este prea lungă."
 	"webhook.outcome.command_service_unavailable"	"Nu a fost trimisă nicio pedeapsă deoarece serviciul de comenzi al serverului nu este disponibil."
 	"webhook.outcome.network_unstable"	"Nu a fost trimisă nicio pedeapsă deoarece conexiunea jucătorului a depășit limitele sigure ale rețelei."
+	"webhook.outcome.website_report_queued"	"No punishment was sent; a website report was queued for review."
+	"webhook.outcome.website_report_unavailable"	"No punishment was sent; the website report service is not configured."
 	"webhook.outcome.unavailable"	"Nu a fost disponibil niciun rezultat al pedepsei."
 	"webhook.unknown_player"	"Jucător necunoscut"
 	"webhook.unknown_detection"	"NECUNOSCUT"
