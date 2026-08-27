@@ -50,7 +50,6 @@ extern IClientCvarValue *g_pClientCvarValue;
 
 #define INTEGRITY_CHECK_MIN_INTERVAL 1.0f
 #define INTEGRITY_CHECK_MAX_INTERVAL 5.0f
-#define MINIMUM_FPS_MAX              64.0f
 #define MAXIMUM_M_YAW                0.3f
 
 static constexpr auto SV_CHEATS_MAX_PROPAGATION_DELAY = std::chrono::seconds(30);
@@ -80,7 +79,7 @@ static_function localization::Text MustEqual(const char *cvar, double value, con
 
 static_global const char *cvarNames[] = {
 	// "m_yaw",       // Disabled: this was kick-only, but legitimate turn binds temporarily use high values.
-	"fps_max",        // Expected to stay at or above the server tick rate.
+	"fps_max",        // Sampled for movement normalization, but never treated as an invalid CVar.
 	"sv_cheats",      // replicated
 	"sensitivity",    // capped (0.0001f => 8.0f)
 	"cl_showpos",     // cheat (default 0)
@@ -204,22 +203,9 @@ static_function void ValidateQueriedCvar(CPlayerSlot nSlot, ECvarValueStatus eSt
 	}
 	else if (CS2AC_STREQI(pszCvarName, "fps_max"))
 	{
-		if (!utils::IsNumeric(pszCvarValue))
-		{
-			markInvalid(InvalidNumber("fps_max"));
-		}
-		else
-		{
-			const f64 fps = atof(pszCvarValue);
-			player->movementDetection->currentMaxFps = fps;
-			if (fps > 0.0f && fps < MINIMUM_FPS_MAX)
-			{
-				markInvalid(localization::Format("evidence.invalid_cvar.fps_max",
-												 "fps_max is {value}, but it must be at least 64 or 0 for unlimited.",
-												 {{"value", tfm::format("%.6g", fps)}}),
-							true);
-			}
-		}
+		// Players may change fps_max freely. Keep the value only so movement analysis can
+		// account for the configured frame cap; an invalid reply simply disables that adjustment.
+		player->movementDetection->currentMaxFps = utils::IsNumeric(pszCvarValue) ? atof(pszCvarValue) : 0.0f;
 	}
 	else if (CS2AC_STREQI(pszCvarName, "sv_cheats"))
 	{
