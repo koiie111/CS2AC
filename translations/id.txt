@@ -51,7 +51,6 @@
 	"evidence.invalid_cvar.above_maximum"	"{cvar} bernilai {value}, tetapi nilai maksimum yang diizinkan adalah {maximum}."
 	"evidence.invalid_cvar.outside_range"	"{cvar} bernilai {value}, tetapi harus berada di antara {minimum} dan {maximum}."
 	"evidence.invalid_cvar.must_equal"	"{cvar} bernilai {value}, tetapi harus bernilai {expected}."
-	"evidence.invalid_cvar.fps_max"	"fps_max bernilai {value}, tetapi harus minimal 64 atau 0 untuk tanpa batas."
 	"evidence.invalid_cvar.sv_cheats"	"sv_cheats aktif atau tidak valid pada klien saat dinonaktifkan di server."
 	"evidence.invalid_cvar.enabled_without_cheats"	"{cvar} aktif pada klien meskipun sv_cheats dinonaktifkan di server."
 	"evidence.invalid_cvar.disabled_without_cheats"	"{cvar} nonaktif pada klien meskipun sv_cheats dinonaktifkan di server."

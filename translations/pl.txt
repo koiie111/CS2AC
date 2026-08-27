@@ -51,7 +51,6 @@
 	"evidence.invalid_cvar.above_maximum"	"{cvar} ma wartość {value}, ale maksymalna dozwolona wartość to {maximum}."
 	"evidence.invalid_cvar.outside_range"	"{cvar} ma wartość {value}, ale musi mieścić się między {minimum} a {maximum}."
 	"evidence.invalid_cvar.must_equal"	"{cvar} ma wartość {value}, ale musi wynosić {expected}."
-	"evidence.invalid_cvar.fps_max"	"fps_max ma wartość {value}, ale musi wynosić co najmniej 64 albo 0 bez limitu."
 	"evidence.invalid_cvar.sv_cheats"	"sv_cheats jest włączone lub nieprawidłowe u klienta, mimo że na serwerze jest wyłączone."
 	"evidence.invalid_cvar.enabled_without_cheats"	"{cvar} jest włączone u klienta, mimo że sv_cheats na serwerze jest wyłączone."
 	"evidence.invalid_cvar.disabled_without_cheats"	"{cvar} jest wyłączone u klienta, mimo że sv_cheats na serwerze jest wyłączone."

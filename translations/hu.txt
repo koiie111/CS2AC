@@ -51,7 +51,6 @@
 	"evidence.invalid_cvar.above_maximum"	"A(z) {cvar} értéke {value}, de a megengedett maximum {maximum}."
 	"evidence.invalid_cvar.outside_range"	"A(z) {cvar} értéke {value}, de {minimum} és {maximum} között kell lennie."
 	"evidence.invalid_cvar.must_equal"	"A(z) {cvar} értéke {value}, de {expected} kell legyen."
-	"evidence.invalid_cvar.fps_max"	"Az fps_max értéke {value}, de legalább 64 vagy korlátlan esetén 0 kell legyen."
 	"evidence.invalid_cvar.sv_cheats"	"Az sv_cheats a kliensen engedélyezett vagy érvénytelen, miközben a szerveren le van tiltva."
 	"evidence.invalid_cvar.enabled_without_cheats"	"A(z) {cvar} engedélyezett a kliensen, miközben az sv_cheats le van tiltva a szerveren."
 	"evidence.invalid_cvar.disabled_without_cheats"	"A(z) {cvar} le van tiltva a kliensen, miközben az sv_cheats le van tiltva a szerveren."

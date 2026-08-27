@@ -51,7 +51,6 @@
 	"evidence.invalid_cvar.above_maximum"	"{cvar} là {value}, nhưng giá trị tối đa cho phép là {maximum}."
 	"evidence.invalid_cvar.outside_range"	"{cvar} là {value}, nhưng phải nằm trong khoảng {minimum} đến {maximum}."
 	"evidence.invalid_cvar.must_equal"	"{cvar} là {value}, nhưng phải là {expected}."
-	"evidence.invalid_cvar.fps_max"	"fps_max là {value}, nhưng phải ít nhất là 64 hoặc 0 để không giới hạn."
 	"evidence.invalid_cvar.sv_cheats"	"sv_cheats được bật hoặc không hợp lệ ở máy khách trong khi đã tắt trên máy chủ."
 	"evidence.invalid_cvar.enabled_without_cheats"	"{cvar} được bật ở máy khách dù sv_cheats đã tắt trên máy chủ."
 	"evidence.invalid_cvar.disabled_without_cheats"	"{cvar} bị tắt ở máy khách dù sv_cheats đã tắt trên máy chủ."

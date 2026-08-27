@@ -51,7 +51,6 @@
 	"evidence.invalid_cvar.above_maximum"	"{cvar} değeri {value}, ancak izin verilen en yüksek değer {maximum}."
 	"evidence.invalid_cvar.outside_range"	"{cvar} değeri {value}, ancak {minimum} ile {maximum} arasında olmalı."
 	"evidence.invalid_cvar.must_equal"	"{cvar} değeri {value}, ancak {expected} olmalı."
-	"evidence.invalid_cvar.fps_max"	"fps_max değeri {value}, ancak en az 64 veya sınırsız için 0 olmalı."
 	"evidence.invalid_cvar.sv_cheats"	"Sunucuda sv_cheats kapalıyken istemcide açık veya geçersiz."
 	"evidence.invalid_cvar.enabled_without_cheats"	"Sunucuda sv_cheats kapalı olmasına rağmen istemcide {cvar} açık."
 	"evidence.invalid_cvar.disabled_without_cheats"	"Sunucuda sv_cheats kapalı olmasına rağmen istemcide {cvar} kapalı."

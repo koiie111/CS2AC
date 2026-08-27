@@ -51,7 +51,6 @@
 	"evidence.invalid_cvar.above_maximum"	"{cvar} 為 {value}，但允許的最大值為 {maximum}。"
 	"evidence.invalid_cvar.outside_range"	"{cvar} 為 {value}，但必須介於 {minimum} 與 {maximum} 之間。"
 	"evidence.invalid_cvar.must_equal"	"{cvar} 為 {value}，但必須是 {expected}。"
-	"evidence.invalid_cvar.fps_max"	"fps_max 為 {value}，但必須至少為 64，或設為 0 表示不限制。"
 	"evidence.invalid_cvar.sv_cheats"	"伺服器已關閉 sv_cheats，但用戶端的值為開啟或無效。"
 	"evidence.invalid_cvar.enabled_without_cheats"	"伺服器已關閉 sv_cheats，但用戶端啟用了 {cvar}。"
 	"evidence.invalid_cvar.disabled_without_cheats"	"伺服器已關閉 sv_cheats，但用戶端停用了 {cvar}。"

@@ -51,7 +51,6 @@
 	"evidence.invalid_cvar.above_maximum"	"{cvar} este {value}, dar valoarea maximă permisă este {maximum}."
 	"evidence.invalid_cvar.outside_range"	"{cvar} este {value}, dar trebuie să fie între {minimum} și {maximum}."
 	"evidence.invalid_cvar.must_equal"	"{cvar} este {value}, dar trebuie să fie {expected}."
-	"evidence.invalid_cvar.fps_max"	"fps_max este {value}, dar trebuie să fie cel puțin 64 sau 0 pentru nelimitat."
 	"evidence.invalid_cvar.sv_cheats"	"sv_cheats este activat sau invalid pe client, deși este dezactivat pe server."
 	"evidence.invalid_cvar.enabled_without_cheats"	"{cvar} este activat pe client, deși sv_cheats este dezactivat pe server."
 	"evidence.invalid_cvar.disabled_without_cheats"	"{cvar} este dezactivat pe client, deși sv_cheats este dezactivat pe server."

@@ -51,7 +51,6 @@
 	"evidence.invalid_cvar.above_maximum"	"Το {cvar} είναι {value}, αλλά η μέγιστη επιτρεπτή τιμή είναι {maximum}."
 	"evidence.invalid_cvar.outside_range"	"Το {cvar} είναι {value}, αλλά πρέπει να είναι μεταξύ {minimum} και {maximum}."
 	"evidence.invalid_cvar.must_equal"	"Το {cvar} είναι {value}, αλλά πρέπει να είναι {expected}."
-	"evidence.invalid_cvar.fps_max"	"Το fps_max είναι {value}, αλλά πρέπει να είναι τουλάχιστον 64 ή 0 για απεριόριστο."
 	"evidence.invalid_cvar.sv_cheats"	"Το sv_cheats είναι ενεργό ή μη έγκυρο στον πελάτη ενώ είναι ανενεργό στον διακομιστή."
 	"evidence.invalid_cvar.enabled_without_cheats"	"Το {cvar} είναι ενεργό στον πελάτη παρότι το sv_cheats είναι ανενεργό στον διακομιστή."
 	"evidence.invalid_cvar.disabled_without_cheats"	"Το {cvar} είναι ανενεργό στον πελάτη παρότι το sv_cheats είναι ανενεργό στον διακομιστή."

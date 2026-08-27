@@ -51,7 +51,6 @@
 	"evidence.invalid_cvar.above_maximum"	"{cvar} je {value}, ali je najveća dozvoljena vrednost {maximum}."
 	"evidence.invalid_cvar.outside_range"	"{cvar} je {value}, ali mora biti između {minimum} i {maximum}."
 	"evidence.invalid_cvar.must_equal"	"{cvar} je {value}, ali mora biti {expected}."
-	"evidence.invalid_cvar.fps_max"	"fps_max je {value}, ali mora biti najmanje 64 ili 0 za neograničeno."
 	"evidence.invalid_cvar.sv_cheats"	"sv_cheats je uključen ili nevažeći na klijentu dok je isključen na serveru."
 	"evidence.invalid_cvar.enabled_without_cheats"	"{cvar} je uključen na klijentu iako je sv_cheats isključen na serveru."
 	"evidence.invalid_cvar.disabled_without_cheats"	"{cvar} je isključen na klijentu iako je sv_cheats isključen na serveru."

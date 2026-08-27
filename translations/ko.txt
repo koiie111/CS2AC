@@ -51,7 +51,6 @@
 	"evidence.invalid_cvar.above_maximum"	"{cvar} 값은 {value}이지만 허용되는 최댓값은 {maximum}입니다."
 	"evidence.invalid_cvar.outside_range"	"{cvar} 값은 {value}이지만 {minimum}에서 {maximum} 사이여야 합니다."
 	"evidence.invalid_cvar.must_equal"	"{cvar} 값은 {value}이지만 {expected}여야 합니다."
-	"evidence.invalid_cvar.fps_max"	"fps_max 값은 {value}이지만 최소 64 또는 무제한인 0이어야 합니다."
 	"evidence.invalid_cvar.sv_cheats"	"서버에서는 sv_cheats가 꺼져 있지만 클라이언트 값이 켜져 있거나 잘못되었습니다."
 	"evidence.invalid_cvar.enabled_without_cheats"	"서버에서는 sv_cheats가 꺼져 있지만 클라이언트에서 {cvar}가 켜져 있습니다."
 	"evidence.invalid_cvar.disabled_without_cheats"	"서버에서는 sv_cheats가 꺼져 있지만 클라이언트에서 {cvar}가 꺼져 있습니다."

@@ -51,7 +51,6 @@
 	"evidence.invalid_cvar.above_maximum"	"הערך של {cvar} הוא {value}, אך הערך המרבי המותר הוא {maximum}."
 	"evidence.invalid_cvar.outside_range"	"הערך של {cvar} הוא {value}, אך עליו להיות בין {minimum} ל-{maximum}."
 	"evidence.invalid_cvar.must_equal"	"הערך של {cvar} הוא {value}, אך עליו להיות {expected}."
-	"evidence.invalid_cvar.fps_max"	"הערך של fps_max הוא {value}, אך עליו להיות לפחות 64 או 0 ללא הגבלה."
 	"evidence.invalid_cvar.sv_cheats"	"sv_cheats מופעל או לא תקין אצל הלקוח בזמן שהוא כבוי בשרת."
 	"evidence.invalid_cvar.enabled_without_cheats"	"{cvar} מופעל אצל הלקוח למרות ש-sv_cheats כבוי בשרת."
 	"evidence.invalid_cvar.disabled_without_cheats"	"{cvar} כבוי אצל הלקוח למרות ש-sv_cheats כבוי בשרת."

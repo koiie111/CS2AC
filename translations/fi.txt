@@ -51,7 +51,6 @@
 	"evidence.invalid_cvar.above_maximum"	"{cvar} on {value}, mutta suurin sallittu arvo on {maximum}."
 	"evidence.invalid_cvar.outside_range"	"{cvar} on {value}, mutta sen on oltava välillä {minimum}–{maximum}."
 	"evidence.invalid_cvar.must_equal"	"{cvar} on {value}, mutta sen on oltava {expected}."
-	"evidence.invalid_cvar.fps_max"	"fps_max on {value}, mutta sen on oltava vähintään 64 tai 0 ilman rajoitusta."
 	"evidence.invalid_cvar.sv_cheats"	"sv_cheats on asiakkaalla käytössä tai virheellinen, vaikka se on palvelimella pois käytöstä."
 	"evidence.invalid_cvar.enabled_without_cheats"	"{cvar} on asiakkaalla käytössä, vaikka sv_cheats on palvelimella pois käytöstä."
 	"evidence.invalid_cvar.disabled_without_cheats"	"{cvar} on asiakkaalla pois käytöstä, vaikka sv_cheats on palvelimella pois käytöstä."

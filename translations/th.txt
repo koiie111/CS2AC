@@ -51,7 +51,6 @@
 	"evidence.invalid_cvar.above_maximum"	"{cvar} มีค่า {value} แต่ค่าสูงสุดที่อนุญาตคือ {maximum}"
 	"evidence.invalid_cvar.outside_range"	"{cvar} มีค่า {value} แต่ต้องอยู่ระหว่าง {minimum} ถึง {maximum}"
 	"evidence.invalid_cvar.must_equal"	"{cvar} มีค่า {value} แต่ต้องเป็น {expected}"
-	"evidence.invalid_cvar.fps_max"	"fps_max มีค่า {value} แต่ต้องอย่างน้อย 64 หรือ 0 สำหรับไม่จำกัด"
 	"evidence.invalid_cvar.sv_cheats"	"sv_cheats เปิดอยู่หรือมีค่าไม่ถูกต้องที่ไคลเอนต์ ทั้งที่ปิดอยู่บนเซิร์ฟเวอร์"
 	"evidence.invalid_cvar.enabled_without_cheats"	"{cvar} เปิดอยู่ที่ไคลเอนต์ ทั้งที่ sv_cheats ปิดอยู่บนเซิร์ฟเวอร์"
 	"evidence.invalid_cvar.disabled_without_cheats"	"{cvar} ปิดอยู่ที่ไคลเอนต์ ทั้งที่ sv_cheats ปิดอยู่บนเซิร์ฟเวอร์"

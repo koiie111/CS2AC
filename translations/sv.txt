@@ -51,7 +51,6 @@
 	"evidence.invalid_cvar.above_maximum"	"{cvar} är {value}, men högsta tillåtna värde är {maximum}."
 	"evidence.invalid_cvar.outside_range"	"{cvar} är {value}, men måste ligga mellan {minimum} och {maximum}."
 	"evidence.invalid_cvar.must_equal"	"{cvar} är {value}, men måste vara {expected}."
-	"evidence.invalid_cvar.fps_max"	"fps_max är {value}, men måste vara minst 64 eller 0 för obegränsat."
 	"evidence.invalid_cvar.sv_cheats"	"sv_cheats är aktiverat eller ogiltigt hos klienten medan det är avstängt på servern."
 	"evidence.invalid_cvar.enabled_without_cheats"	"{cvar} är aktiverat hos klienten trots att sv_cheats är avstängt på servern."
 	"evidence.invalid_cvar.disabled_without_cheats"	"{cvar} är avstängt hos klienten trots att sv_cheats är avstängt på servern."

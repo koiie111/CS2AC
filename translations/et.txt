@@ -51,7 +51,6 @@
 	"evidence.invalid_cvar.above_maximum"	"{cvar} on {value}, kuid suurim lubatud väärtus on {maximum}."
 	"evidence.invalid_cvar.outside_range"	"{cvar} on {value}, kuid peab olema vahemikus {minimum} kuni {maximum}."
 	"evidence.invalid_cvar.must_equal"	"{cvar} on {value}, kuid peab olema {expected}."
-	"evidence.invalid_cvar.fps_max"	"fps_max on {value}, kuid peab olema vähemalt 64 või piiramatu jaoks 0."
 	"evidence.invalid_cvar.sv_cheats"	"sv_cheats on kliendil sisse lülitatud või vigane, kuigi serveris on see välja lülitatud."
 	"evidence.invalid_cvar.enabled_without_cheats"	"{cvar} on kliendil sisse lülitatud, kuigi sv_cheats on serveris välja lülitatud."
 	"evidence.invalid_cvar.disabled_without_cheats"	"{cvar} on kliendil välja lülitatud, kuigi sv_cheats on serveris välja lülitatud."

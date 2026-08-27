@@ -51,7 +51,6 @@
 	"evidence.invalid_cvar.above_maximum"	"{cvar} ir {value}, bet lielākā atļautā vērtība ir {maximum}."
 	"evidence.invalid_cvar.outside_range"	"{cvar} ir {value}, bet tam jābūt starp {minimum} un {maximum}."
 	"evidence.invalid_cvar.must_equal"	"{cvar} ir {value}, bet tam jābūt {expected}."
-	"evidence.invalid_cvar.fps_max"	"fps_max ir {value}, bet tam jābūt vismaz 64 vai 0 bez ierobežojuma."
 	"evidence.invalid_cvar.sv_cheats"	"sv_cheats klientā ir ieslēgts vai nederīgs, kamēr serverī tas ir izslēgts."
 	"evidence.invalid_cvar.enabled_without_cheats"	"{cvar} klientā ir ieslēgts, lai gan sv_cheats serverī ir izslēgts."
 	"evidence.invalid_cvar.disabled_without_cheats"	"{cvar} klientā ir izslēgts, lai gan sv_cheats serverī ir izslēgts."

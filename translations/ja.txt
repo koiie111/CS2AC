@@ -51,7 +51,6 @@
 	"evidence.invalid_cvar.above_maximum"	"{cvar} は {value} ですが、許可される最大値は {maximum} です。"
 	"evidence.invalid_cvar.outside_range"	"{cvar} は {value} ですが、{minimum} から {maximum} の範囲である必要があります。"
 	"evidence.invalid_cvar.must_equal"	"{cvar} は {value} ですが、{expected} である必要があります。"
-	"evidence.invalid_cvar.fps_max"	"fps_max は {value} ですが、64以上または無制限の0である必要があります。"
 	"evidence.invalid_cvar.sv_cheats"	"サーバーでは sv_cheats が無効ですが、クライアントでは有効または不正な値です。"
 	"evidence.invalid_cvar.enabled_without_cheats"	"サーバーでは sv_cheats が無効ですが、クライアントで {cvar} が有効です。"
 	"evidence.invalid_cvar.disabled_without_cheats"	"サーバーでは sv_cheats が無効ですが、クライアントで {cvar} が無効です。"

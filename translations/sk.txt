@@ -51,7 +51,6 @@
 	"evidence.invalid_cvar.above_maximum"	"{cvar} má hodnotu {value}, ale najvyššia povolená hodnota je {maximum}."
 	"evidence.invalid_cvar.outside_range"	"{cvar} má hodnotu {value}, ale musí byť medzi {minimum} a {maximum}."
 	"evidence.invalid_cvar.must_equal"	"{cvar} má hodnotu {value}, ale musí byť {expected}."
-	"evidence.invalid_cvar.fps_max"	"fps_max má hodnotu {value}, ale musí byť aspoň 64 alebo 0 pre neobmedzené."
 	"evidence.invalid_cvar.sv_cheats"	"sv_cheats je u klienta zapnuté alebo neplatné, hoci je na serveri vypnuté."
 	"evidence.invalid_cvar.enabled_without_cheats"	"{cvar} je u klienta zapnuté, hoci je sv_cheats na serveri vypnuté."
 	"evidence.invalid_cvar.disabled_without_cheats"	"{cvar} je u klienta vypnuté, hoci je sv_cheats na serveri vypnuté."

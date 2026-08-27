@@ -51,7 +51,6 @@
 	"evidence.invalid_cvar.above_maximum"	"Значення {cvar} дорівнює {value}, а дозволений максимум — {maximum}."
 	"evidence.invalid_cvar.outside_range"	"Значення {cvar} дорівнює {value}, але має бути від {minimum} до {maximum}."
 	"evidence.invalid_cvar.must_equal"	"Значення {cvar} дорівнює {value}, але має бути {expected}."
-	"evidence.invalid_cvar.fps_max"	"Значення fps_max дорівнює {value}, але має бути не менше 64 або 0 без обмеження."
 	"evidence.invalid_cvar.sv_cheats"	"На клієнті sv_cheats увімкнений або має хибне значення, хоча на сервері він вимкнений."
 	"evidence.invalid_cvar.enabled_without_cheats"	"На клієнті увімкнено {cvar}, хоча на сервері sv_cheats вимкнений."
 	"evidence.invalid_cvar.disabled_without_cheats"	"На клієнті вимкнено {cvar}, хоча на сервері sv_cheats вимкнений."

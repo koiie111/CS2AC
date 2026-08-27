@@ -51,7 +51,6 @@
 	"evidence.invalid_cvar.above_maximum"	"قيمة {cvar} هي {value}، لكن الحد الأقصى المسموح هو {maximum}."
 	"evidence.invalid_cvar.outside_range"	"قيمة {cvar} هي {value}، لكن يجب أن تكون بين {minimum} و{maximum}."
 	"evidence.invalid_cvar.must_equal"	"قيمة {cvar} هي {value}، لكن يجب أن تكون {expected}."
-	"evidence.invalid_cvar.fps_max"	"قيمة fps_max هي {value}، لكن يجب أن تكون 64 على الأقل أو 0 بلا حد."
 	"evidence.invalid_cvar.sv_cheats"	"sv_cheats مفعّل أو غير صالح لدى العميل بينما هو معطل على الخادم."
 	"evidence.invalid_cvar.enabled_without_cheats"	"{cvar} مفعّل لدى العميل رغم أن sv_cheats معطل على الخادم."
 	"evidence.invalid_cvar.disabled_without_cheats"	"{cvar} معطل لدى العميل رغم أن sv_cheats معطل على الخادم."
