@@ -56,9 +56,8 @@ for source, target in (
    'CLIENTCVARVALUE-GPL-3.0.txt'),
   (os.path.join('licenses', 'DYNLIBUTILS-MIT.txt'), 'DYNLIBUTILS-MIT.txt'),
   (os.path.join('licenses', 'CS2KZ-AGPL-3.0.txt'), 'CS2KZ-AGPL-3.0.txt'),
-  (os.path.join('licenses', 'FUNCHOOK.txt'), 'FUNCHOOK.txt'),
-  (os.path.join('licenses', 'DISTORM.txt'), 'DISTORM.txt'),
   (os.path.join('metamod-source', 'LICENSE.txt'), 'METAMOD-SOURCE.txt'),
+  (os.path.join('metamod-source', 'third_party', 'khook', 'LICENSE'), 'KHOOK.txt'),
   (os.path.join('hl2sdk-cs2', 'thirdparty', 'protobuf-3.21.8', 'LICENSE'),
    'PROTOBUF.txt'),
 ):

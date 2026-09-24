@@ -5,7 +5,7 @@
 ### Open-source server-side anti-cheat for Counter-Strike 2.
 
 [![Build](https://img.shields.io/github/actions/workflow/status/koiie111/CS2AC/build.yml?branch=main&style=for-the-badge&label=build)](https://github.com/koiie111/CS2AC/actions/workflows/build.yml)
-[![Version](https://img.shields.io/badge/version-1.1.0-blue?style=for-the-badge)](https://github.com/koiie111/CS2AC)
+[![Version](https://img.shields.io/badge/version-1.1.1-blue?style=for-the-badge)](https://github.com/koiie111/CS2AC)
 [![Detections](https://img.shields.io/badge/detections-17-red?style=for-the-badge)](#the-seventeen-detection-modules)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-5c7cfa?style=for-the-badge)](#quickstart)
 [![License](https://img.shields.io/badge/license-AGPL--3.0-2ea44f?style=for-the-badge)](LICENSE)
@@ -156,7 +156,7 @@ Whitelisting does not silence CS2AC. The detection still appears in chat, on scr
 
 ## Quickstart
 
-You need a Windows x64 or Linux x64 CS2 dedicated server running [Metamod:Source](https://www.sourcemm.net/) 2.x.
+You need a Windows x64 or Linux x64 CS2 dedicated server running [Metamod:Source](https://www.sourcemm.net/) 2.0 prerelease build 1469 or newer.
 
 1. Open this repository's **Releases** tab and choose the matching Windows or Linux package.
 2. Extract it into the CS2 server root without rearranging anything. The package begins with the `game` folder.
@@ -310,7 +310,7 @@ They solve different problems, run entirely on the server, and can protect the s
 Clone the pinned submodules:
 
 ```sh
-git clone --recursive https://github.com/karola3vax/CS2AC.git
+git clone --recursive https://github.com/koiie111/CS2AC.git
 cd CS2AC
 ```
 
@@ -327,6 +327,8 @@ Linux needs Python 3.8 or newer and Docker:
 ```
 
 Both scripts make a directly installable package under the build folder's `package/game` directory. Linux builds inside the pinned Steam Runtime 3 SDK image.
+
+The [build workflow](.github/workflows/build.yml) checks the Metamod 2.0 `master` snapshot every six hours. When its commit changes, the workflow updates the pinned submodule on an automation branch, builds both platforms from the same source package, and publishes a new release after the builds pass. A failed build does not advance `main` or publish a release.
 
 ## Be part of it
 

@@ -39,8 +39,6 @@ constexpr auto QUERYTIMEOUT = std::chrono::seconds(10);
 
 ClientCvarValue g_ClientCvarValue;
 
-SH_DECL_MANUALHOOK1(OnProcessRespondCvarValue, 0, 0, 0, bool, const CNetMessagePB<CCLCMsg_RespondCvarValue> &);
-
 static void SetLoadError(char *error, size_t maxlen, const std::string &message)
 {
 	if (error && maxlen)
@@ -98,12 +96,7 @@ bool ClientCvarValue::Validate(IVEngineServer2 *pEngineServer, INetworkMessages 
 		else if (responseHandlerOffset >= 0 && responseHandlerOffset <= 512)
 		{
 			void **handlerEntry = reinterpret_cast<void **>(serverClientVTable.GetPtr()) + responseHandlerOffset;
-			// SourceHook replaces this entry with its dispatcher and keeps the original address for every plugin sharing the hook.
-			const void *handler = g_SHPtr ? g_SHPtr->GetOrigVfnPtrEntry(handlerEntry) : nullptr;
-			if (!handler)
-			{
-				handler = *handlerEntry;
-			}
+			const void *handler = *handlerEntry;
 			const auto executable = serverModule.GetSectionByName(".text");
 			const uintptr_t handlerAddress = reinterpret_cast<uintptr_t>(handler);
 			const uintptr_t executableStart = executable.m_pSectionBase.GetPtr();
@@ -125,13 +118,13 @@ bool ClientCvarValue::Validate(IVEngineServer2 *pEngineServer, INetworkMessages 
 bool ClientCvarValue::Load(IVEngineServer2 *pEngineServer, INetworkMessages *pNetworkMessages, IGameEventSystem *pGameEventSystem, char *error,
 						   size_t maxlen)
 {
-	if (m_iProcessRespondCvarValueID)
+	if (m_responseHook)
 	{
 		return true;
 	}
 
 	std::string missing;
-	if (!g_SHPtr)
+	if (!KHook::__exported__khook)
 	{
 		AddMissingRequirement(missing, "Metamod's hook service is unavailable.");
 	}
@@ -159,11 +152,11 @@ bool ClientCvarValue::Load(IVEngineServer2 *pEngineServer, INetworkMessages *pNe
 
 	INetworkMessageInternal *pGetCvarValueMessage = pNetworkMessages->FindNetworkMessagePartial("CSVCMsg_GetCvarValue");
 	void *pCServerSideClientVTable = DynLibUtils::CModule(pEngineServer).GetVirtualTableByName("CServerSideClient");
-	SH_MANUALHOOK_RECONFIGURE(OnProcessRespondCvarValue, g_pGameConfig->GetOffset("ProcessRespondCvarValue"), 0, 0);
-
-	m_iProcessRespondCvarValueID =
-		SH_ADD_MANUALDVPHOOK(OnProcessRespondCvarValue, pCServerSideClientVTable, SH_MEMBER(this, &ClientCvarValue::OnProcessRespondCvarValue), true);
-	if (!m_iProcessRespondCvarValueID)
+	void *handler = reinterpret_cast<void **>(pCServerSideClientVTable)[g_pGameConfig->GetOffset("ProcessRespondCvarValue")];
+	m_responseHook = std::make_unique<KHook::Function<bool, void *, const CNetMessagePB<CCLCMsg_RespondCvarValue> &>>(
+		this, &ClientCvarValue::OnProcessRespondCvarValue, nullptr);
+	m_responseHook->Configure(handler);
+	if (!m_responseHook)
 	{
 		SetLoadError(error, maxlen,
 					 "CS2AC cannot check player settings because it could not attach to the server's player-setting response handler.");
@@ -179,19 +172,7 @@ bool ClientCvarValue::Load(IVEngineServer2 *pEngineServer, INetworkMessages *pNe
 
 bool ClientCvarValue::Unload()
 {
-	bool removed = true;
-	if (m_iProcessRespondCvarValueID)
-	{
-		if (SH_REMOVE_HOOK_ID(m_iProcessRespondCvarValueID))
-		{
-			m_iProcessRespondCvarValueID = 0;
-		}
-		else
-		{
-			Warning("[CS2AC] The player-setting response hook could not be removed yet. Metamod will try again during unload.\n");
-			removed = false;
-		}
-	}
+	m_responseHook.reset();
 
 	OnMapReset();
 	m_pGetCvarValueMessage = nullptr;
@@ -199,20 +180,20 @@ bool ClientCvarValue::Unload()
 	m_pEngineServer = nullptr;
 	m_iClientSlotOffset = -1;
 	m_iQueryCvarCookieCounter = 0;
-	return removed;
+	return true;
 }
 
-bool ClientCvarValue::OnProcessRespondCvarValue(const CNetMessagePB<CCLCMsg_RespondCvarValue> &msg)
+KHook::Return<bool> ClientCvarValue::OnProcessRespondCvarValue(void *client, const CNetMessagePB<CCLCMsg_RespondCvarValue> &msg)
 {
 	if (!msg.has_cookie() || m_iClientSlotOffset < 0)
 	{
-		RETURN_META_VALUE(MRES_IGNORED, true);
+		return {KHook::Action::Ignore};
 	}
 
-	int nSlot = DynLibUtils::CMemory(META_IFACEPTR(void)).Offset(m_iClientSlotOffset).GetValue<int>();
+	int nSlot = DynLibUtils::CMemory(client).Offset(m_iClientSlotOffset).GetValue<int>();
 	if (nSlot < 0 || nSlot >= static_cast<int>(m_ClientCvarData.size()))
 	{
-		RETURN_META_VALUE(MRES_IGNORED, true);
+		return {KHook::Action::Ignore};
 	}
 
 	switch (msg.cookie())
@@ -260,7 +241,7 @@ bool ClientCvarValue::OnProcessRespondCvarValue(const CNetMessagePB<CCLCMsg_Resp
 		}
 	}
 
-	RETURN_META_VALUE(MRES_IGNORED, true);
+	return {KHook::Action::Ignore};
 }
 
 void ClientCvarValue::OnClientFullyConnected(CPlayerSlot nSlot, bool bFakePlayer)

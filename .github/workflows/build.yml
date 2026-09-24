@@ -6,11 +6,42 @@ on:
     tags: ["v*"]
   pull_request:
   workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *"
 
 permissions:
   contents: read
 
+concurrency:
+  group: cs2ac-build-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
+  check-metamod:
+    runs-on: ubuntu-latest
+    outputs:
+      build: ${{ steps.check.outputs.build }}
+      upstream_sha: ${{ steps.check.outputs.upstream_sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Check Metamod 2.0 prerelease
+        id: check
+        shell: bash
+        run: |
+          if [[ "$GITHUB_EVENT_NAME" != schedule ]]; then
+            echo "build=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          current="$(git rev-parse HEAD:metamod-source)"
+          upstream="$(git ls-remote https://github.com/alliedmodders/metamod-source.git refs/heads/master | cut -f1)"
+          test -n "$upstream"
+          echo "upstream_sha=$upstream" >> "$GITHUB_OUTPUT"
+          if [[ "$current" == "$upstream" ]]; then
+            echo "build=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "build=true" >> "$GITHUB_OUTPUT"
+          fi
+
   format:
     runs-on: ubuntu-latest
     steps:
@@ -38,23 +69,23 @@ jobs:
     steps:
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
         with:
-          name: CS2AC-1.1.0-source
+          name: CS2AC-1.1.1-source
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: "3.12"
       - name: Build Windows x64 from the source package
         shell: pwsh
         run: |
-          Expand-Archive -LiteralPath CS2AC-1.1.0-source.zip -DestinationPath source-check
-          Set-Location source-check/CS2AC-1.1.0-source
+          Expand-Archive -LiteralPath CS2AC-1.1.1-source.zip -DestinationPath source-check
+          Set-Location source-check/CS2AC-1.1.1-source
           ./build-windows.ps1 -BuildDirectory build-windows-ci
       - name: Package Windows x64
         shell: pwsh
-        run: Compress-Archive -Path source-check/CS2AC-1.1.0-source/build-windows-ci/package/game -DestinationPath CS2AC-1.1.0-windows-x64.zip
+        run: Compress-Archive -Path source-check/CS2AC-1.1.1-source/build-windows-ci/package/game -DestinationPath CS2AC-1.1.1-windows-x64.zip
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
-          name: CS2AC-1.1.0-windows-x64
-          path: CS2AC-1.1.0-windows-x64.zip
+          name: CS2AC-1.1.1-windows-x64
+          path: CS2AC-1.1.1-windows-x64.zip
           if-no-files-found: error
 
   linux:
@@ -63,52 +94,91 @@ jobs:
     steps:
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
         with:
-          name: CS2AC-1.1.0-source
+          name: CS2AC-1.1.1-source
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: "3.12"
       - name: Build Linux SteamRT3 x64 from the source package
         run: |
-          unzip -q CS2AC-1.1.0-source.zip -d source-check
-          cd source-check/CS2AC-1.1.0-source
+          unzip -q CS2AC-1.1.1-source.zip -d source-check
+          cd source-check/CS2AC-1.1.1-source
           ./build-linux.sh build-linux-ci
       - name: Package Linux x64
-        run: cd source-check/CS2AC-1.1.0-source/build-linux-ci/package && zip -qr ../../../../CS2AC-1.1.0-linux-x64.zip game
+        run: cd source-check/CS2AC-1.1.1-source/build-linux-ci/package && zip -qr ../../../../CS2AC-1.1.1-linux-x64.zip game
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
-          name: CS2AC-1.1.0-linux-x64
-          path: CS2AC-1.1.0-linux-x64.zip
+          name: CS2AC-1.1.1-linux-x64
+          path: CS2AC-1.1.1-linux-x64.zip
           if-no-files-found: error
 
   source:
+    needs: check-metamod
+    if: needs.check-metamod.outputs.build == 'true'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      source_sha: ${{ steps.snapshot.outputs.source_sha }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           submodules: recursive
+          persist-credentials: true
+      - name: Update Metamod 2.0 snapshot
+        if: github.event_name == 'schedule'
+        env:
+          UPSTREAM_SHA: ${{ needs.check-metamod.outputs.upstream_sha }}
+        shell: bash
+        run: |
+          git -C metamod-source fetch --depth 1 origin "$UPSTREAM_SHA"
+          git -C metamod-source checkout --detach "$UPSTREAM_SHA"
+          test "$(cat metamod-source/product.version)" = '2.0.0-dev'
+          git -C metamod-source submodule update --init --recursive --depth 1
+          git add metamod-source
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "Update Metamod 2.0 prerelease to ${UPSTREAM_SHA:0:12}"
+          git push --force origin HEAD:refs/heads/codex/metamod-auto
+      - name: Record source revision
+        id: snapshot
+        shell: bash
+        run: echo "source_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: "3.12"
       - name: Materialize pinned build tools
         run: ./bootstrap.sh
       - name: Package complete source
-        run: python3 package-source.py --output CS2AC-1.1.0-source.zip
+        run: python3 package-source.py --output CS2AC-1.1.1-source.zip
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
-          name: CS2AC-1.1.0-source
-          path: CS2AC-1.1.0-source.zip
+          name: CS2AC-1.1.1-source
+          path: CS2AC-1.1.1-source.zip
           if-no-files-found: error
 
   release:
-    if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'push' && github.ref == 'refs/heads/main')
-    needs: [windows, linux, source]
+    if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'schedule'
+    needs: [windows, linux, source, format]
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        if: github.event_name == 'schedule'
+        with:
+          persist-credentials: true
+      - name: Promote verified Metamod build
+        if: github.event_name == 'schedule'
+        env:
+          SOURCE_SHA: ${{ needs.source.outputs.source_sha }}
+        shell: bash
+        run: |
+          git fetch origin refs/heads/codex/metamod-auto
+          test "$(git rev-parse FETCH_HEAD)" = "$SOURCE_SHA"
+          git push origin "$SOURCE_SHA:refs/heads/main"
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
         with:
-          pattern: CS2AC-1.1.0-*
+          pattern: CS2AC-1.1.1-*
           path: dist
           merge-multiple: true
       - name: Publish release
@@ -120,8 +190,8 @@ jobs:
             tag="$GITHUB_REF_NAME"
             verify=(--verify-tag)
           else
-            tag="v1.1.0-build.${GITHUB_RUN_NUMBER}"
-            verify=(--target "$GITHUB_SHA")
+            tag="v1.1.1-build.${GITHUB_RUN_NUMBER}"
+            verify=(--target "${{ needs.source.outputs.source_sha }}")
           fi
           gh release create "$tag" dist/*.zip \
             --repo "$GITHUB_REPOSITORY" \

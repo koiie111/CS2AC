@@ -27,6 +27,8 @@
 #include <string>
 #include <unordered_map>
 #include <utility>
+#include <memory>
+#include <khook.hpp>
 
 class IGameEventSystem;
 class INetworkMessageInternal;
@@ -49,12 +51,12 @@ public:
 	}
 
 private:
-	bool OnProcessRespondCvarValue(const CNetMessagePB<CCLCMsg_RespondCvarValue> &msg);
+	KHook::Return<bool> OnProcessRespondCvarValue(void *client, const CNetMessagePB<CCLCMsg_RespondCvarValue> &msg);
 	int SendCvarValueQueryToClient(CPlayerSlot nSlot, const char *pszCvarName, int iQueryCvarCookieOverride = -1);
 	int NextQueryCookie();
 	bool IsQueryCookieInUse(int cookie) const;
 
-	int m_iProcessRespondCvarValueID = 0;
+	std::unique_ptr<KHook::Function<bool, void *, const CNetMessagePB<CCLCMsg_RespondCvarValue> &>> m_responseHook;
 	int m_iClientSlotOffset = -1;
 	uint32_t m_iQueryCvarCookieCounter = 0;
 	IVEngineServer2 *m_pEngineServer = nullptr;

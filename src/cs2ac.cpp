@@ -383,7 +383,7 @@ bool CS2ACPlugin::QueryRunning(char *error, size_t maxlen)
 bool CS2ACPlugin::Activate(char *error, size_t maxlen, bool late)
 {
 	std::vector<std::string> missing;
-	if (!g_SHPtr)
+	if (!KHook::__exported__khook)
 	{
 		missing.emplace_back("Metamod's hook service is unavailable.");
 	}

@@ -70,7 +70,6 @@ binary.compiler.cxxincludes += [
   os.path.join(builder.sourcePath, 'hl2sdk-cs2'),
   os.path.join(builder.sourcePath, 'hl2sdk-cs2', 'public', 'entity2'),
   os.path.join(builder.sourcePath, 'hl2sdk-cs2', 'game', 'server'),
-  os.path.join(builder.sourcePath, 'vendor', 'funchook', 'include'),
   os.path.join(builder.buildPath, 'cs2ac-protobuf',
                '{}-{}'.format(cxx.target.platform, cxx.target.arch)),
 ]
@@ -86,8 +85,6 @@ binary.compiler.sourcedeps += [protobuf]
 if cxx.target.platform == 'windows':
   binary.compiler.postlink += [
     'psapi.lib',
-    os.path.join(builder.sourcePath, 'vendor', 'funchook', 'lib', 'funchook.lib'),
-    os.path.join(builder.sourcePath, 'vendor', 'funchook', 'lib', 'distorm.lib'),
     os.path.join(sdk['path'], 'lib', 'public', 'win64', 'mathlib.lib'),
     os.path.join(sdk['path'], 'lib', 'public', 'win64', 'steam_api64.lib'),
     'delayimp.lib',
@@ -95,8 +92,6 @@ if cxx.target.platform == 'windows':
   binary.compiler.linkflags += ['/DELAYLOAD:steam_api64.dll']
 else:
   binary.compiler.postlink += [
-    os.path.join(builder.sourcePath, 'vendor', 'funchook', 'lib', 'libfunchook.a'),
-    os.path.join(builder.sourcePath, 'vendor', 'funchook', 'lib', 'libdistorm.a'),
     os.path.join(sdk['path'], 'lib', 'linux64', 'mathlib.a'),
   ]
 
