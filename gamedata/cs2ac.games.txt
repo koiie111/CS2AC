@@ -108,28 +108,31 @@
 			"Teleport"
 			{
 				"windows"	"163"
-				"linux"		"162"
+				"linux"		"164"
 			}
 			"IsEntityPawn"
 			{
 				"windows"	"169"
-				"linux"		"168"
+				"linux"		"170"
 			}
 			"IsEntityController"
 			{
 				"windows"	"170"
-				"linux"		"169"
+				"linux"		"171"
 			}
 			"ClientOffset"
 			{
 				"windows"	"584"
-				"linux"		"584"
+				"linux"		"616"
 			}
+			// CServerSideClient primary vtable index (not a byte offset).
+			// Linux remains 40 in CS2 1.41.8.2 and 1.41.8.3.
 			"ProcessRespondCvarValue"
 			{
 				"windows"	"38"
 				"linux"		"40"
 			}
+			// CServerSideClientBase::m_nClientSlot byte offset: 0x48.
 			"ClientSlotOffset"
 			{
 				"windows"	"72"
