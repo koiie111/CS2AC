@@ -8,6 +8,14 @@
 #include "plat.h"
 #include "sdk/entity/cbaseentity.h"
 #include "entity2/entityclass.h"
+#include <cstddef>
+
+// CS2's spawn-key datamap records are no longer the old prediction records.
+// A stale SDK uses a 0x70 stride on Linux and reads past the field array.
+static_assert(sizeof(typedescription_t) == 0x38, "Update HL2SDK: incompatible CS2 datamap field stride");
+static_assert(offsetof(typedescription_t, fieldName) == 0x08);
+static_assert(offsetof(typedescription_t, fieldOffset) == 0x10);
+static_assert(sizeof(decltype(datamap_t::dataNumFields)) == sizeof(int));
 
 #include "tier0/memdbgon.h"
 using SchemaKeyValueMap_t = std::map<uint32_t, SchemaKey>;
@@ -94,7 +102,8 @@ static void InitSchemaKeyValueMap(SchemaClassInfoData_t *pClassInfo, SchemaKeyVa
 		keyValueMap.insert(keyValuePair);
 	}
 
-	short dataNumFields = pClassInfo->m_pDataDescMap ? pClassInfo->m_pDataDescMap->dataNumFields : 0;
+	const auto *dataMap = pClassInfo->m_pDataDescMap;
+	const int dataNumFields = dataMap && dataMap->dataDesc ? dataMap->dataNumFields : 0;
 	for (int i = 0; i < dataNumFields; ++i)
 	{
 		auto &field = pClassInfo->m_pDataDescMap->dataDesc[i];
@@ -201,7 +210,8 @@ bool schema::HasField(const char *className, const char *memberName)
 		}
 	}
 
-	const int dataFieldCount = classInfo->m_pDataDescMap ? classInfo->m_pDataDescMap->dataNumFields : 0;
+	const auto *dataMap = classInfo->m_pDataDescMap;
+	const int dataFieldCount = dataMap && dataMap->dataDesc ? dataMap->dataNumFields : 0;
 	for (int i = 0; i < dataFieldCount; ++i)
 	{
 		const auto &field = classInfo->m_pDataDescMap->dataDesc[i];
