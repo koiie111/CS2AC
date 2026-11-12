@@ -1,10 +1,11 @@
 #include "utils.h"
 
 #include "cs2ac.h"
-#include "sdk/cgameresourceserviceserver.h"
 #include "sdk/serversideclient.h"
 #include "utils/gameconfig.h"
-#include "iserver.h"
+#include "engine2/isource2server.h"
+#include "engine2/inetworkserverservice.h"
+#include "engine2/networkgameserverbase.h"
 
 CGameConfig *g_pGameConfig = nullptr;
 static CS2ACUtils s_CS2ACUtils;
@@ -61,18 +62,13 @@ const CGlobalVars *CS2ACUtils::GetServerGlobals()
 	return g_CS2AC.simulatingPhysics ? &g_CS2AC.serverGlobals : GetGlobals();
 }
 
-CUtlVector<CServerSideClient *> *CS2ACUtils::GetClientList()
+CUtlVector<CServerSideClientBase *> *CS2ACUtils::GetClientList()
 {
-	if (!g_pNetworkServerService || !g_pGameConfig || g_pGameConfig->GetOffset("ClientOffset") < 0)
-	{
-		return nullptr;
-	}
-	auto *server = g_pNetworkServerService->GetIGameServer();
-	return server ? reinterpret_cast<CUtlVector<CServerSideClient *> *>(reinterpret_cast<char *>(server) + g_pGameConfig->GetOffset("ClientOffset"))
-				  : nullptr;
+	auto *server = g_pNetworkServerService ? g_pNetworkServerService->GetIGameServer() : nullptr;
+	return server ? &server->m_Clients : nullptr;
 }
 
-CServerSideClient *CS2ACUtils::GetClientBySlot(CPlayerSlot slot)
+CServerSideClientBase *CS2ACUtils::GetClientBySlot(CPlayerSlot slot)
 {
 	auto *clients = GetClientList();
 	return clients && slot.Get() >= 0 && slot.Get() < clients->Count() ? clients->Element(slot.Get()) : nullptr;

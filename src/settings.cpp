@@ -1,7 +1,7 @@
 #include "settings.h"
 
 #include "convar.h"
-#include "eiface.h"
+#include "engine2/ivengineserver2.h"
 #include "utils/interfaces.h"
 
 #include <algorithm>

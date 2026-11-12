@@ -16,10 +16,11 @@
 
 #include "client_cvar_value.h"
 #include <ISmmPlugin.h>
-#include <eiface.h>
+#include <engine2/ivengineserver2.h>
+#include <engine2/serversideclientbase.h>
 #include <networksystem/inetworkserializer.h>
 #include <networksystem/inetworkmessages.h>
-#include <inetchannel.h>
+#include <networksystem/inetchannel.h>
 #include <igameeventsystem.h>
 #include "utils.hpp"
 #include "dynlibutils/module.h"
@@ -61,6 +62,14 @@ bool ClientCvarValue::Validate(IVEngineServer2 *pEngineServer, INetworkMessages 
 	std::string missing;
 	const int responseHandlerOffset = g_pGameConfig ? g_pGameConfig->GetOffset("ProcessRespondCvarValue") : -1;
 	const int clientSlotOffset = g_pGameConfig ? g_pGameConfig->GetOffset("ClientSlotOffset") : -1;
+	if (responseHandlerOffset >= 0 && responseHandlerOffset != KHook::GetVtableIndex(&CServerSideClientBase::ProcessRespondCvarValue))
+	{
+		AddMissingRequirement(missing, "The player-setting response-handler offset does not match this engine SDK.");
+	}
+	if (clientSlotOffset >= 0 && clientSlotOffset != offsetof(CServerSideClientBase, m_nClientSlot))
+	{
+		AddMissingRequirement(missing, "The player-setting client-slot offset does not match this engine SDK.");
+	}
 	if (responseHandlerOffset < 0)
 	{
 		AddMissingRequirement(missing, "The player-setting response-handler offset is missing from the game data.");
@@ -180,6 +189,7 @@ bool ClientCvarValue::Unload()
 	m_pEngineServer = nullptr;
 	m_iClientSlotOffset = -1;
 	m_iQueryCvarCookieCounter = 0;
+	m_queriesSent = m_validatedReplies = 0;
 	return true;
 }
 
@@ -203,6 +213,7 @@ KHook::Return<bool> ClientCvarValue::OnProcessRespondCvarValue(void *client, con
 			if (msg.has_status_code() && msg.status_code() == static_cast<int>(ECvarValueStatus::ValueIntact) && msg.has_name()
 				&& msg.name() == "cl_language" && msg.has_value() && msg.value().find('\0') == std::string::npos)
 			{
+				++m_validatedReplies;
 				m_ClientCvarData[nSlot].m_sLanguage = msg.value();
 			}
 			break;
@@ -212,6 +223,7 @@ KHook::Return<bool> ClientCvarValue::OnProcessRespondCvarValue(void *client, con
 			if (msg.has_status_code() && msg.status_code() == static_cast<int>(ECvarValueStatus::ValueIntact) && msg.has_name()
 				&& msg.name() == "engine_ostype" && msg.has_value() && msg.value().find('\0') == std::string::npos)
 			{
+				++m_validatedReplies;
 				m_ClientCvarData[nSlot].m_sOperatingSystem = msg.value();
 			}
 			break;
@@ -229,6 +241,7 @@ KHook::Return<bool> ClientCvarValue::OnProcessRespondCvarValue(void *client, con
 					&& (msg.status_code() != static_cast<int>(ECvarValueStatus::ValueIntact)
 						|| (msg.has_value() && msg.value().find('\0') == std::string::npos)))
 				{
+					++m_validatedReplies;
 					auto callback = std::move(it->second.callback);
 					queryCallback.erase(it);
 					if (callback)
@@ -283,12 +296,15 @@ int ClientCvarValue::SendCvarValueQueryToClient(CPlayerSlot nSlot, const char *p
 			return -1;
 		}
 
-		CNetMessagePB<CSVCMsg_GetCvarValue> *msg = m_pGetCvarValueMessage->AllocateMessage()->ToPB<CSVCMsg_GetCvarValue>();
+		auto *allocated = m_pGetCvarValueMessage->AllocateMessage();
+		if (!allocated) return -1;
+		auto *msg = allocated->ToPB<CSVCMsg_GetCvarValue>();
 		msg->set_cookie(iQueryCvarCookie);
 		msg->set_cvar_name(pszCvarName);
 
 		uint64 clients = {1llu << nSlot.Get()};
 		m_pGameEventSystem->PostEventAbstract(-1, false, nSlot.Get() + 1, &clients, m_pGetCvarValueMessage, msg, 0, BUF_RELIABLE);
+		++m_queriesSent;
 		delete msg;
 
 		return iQueryCvarCookie;

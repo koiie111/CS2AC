@@ -22,7 +22,7 @@ CCSPlayerPawn *Player::GetPlayerPawn()
 	return controller ? controller->GetPlayerPawn() : nullptr;
 }
 
-CServerSideClient *Player::GetClient()
+CServerSideClientBase *Player::GetClient()
 {
 	return g_pCS2ACUtils ? g_pCS2ACUtils->GetClientBySlot(GetPlayerSlot()) : nullptr;
 }
@@ -36,7 +36,7 @@ bool Player::IsConnected()
 bool Player::IsInGame()
 {
 	auto *client = GetClient();
-	return client && client->IsInGame();
+	return client && client->IsActive();
 }
 
 bool Player::IsFakeClient()

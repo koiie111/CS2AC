@@ -2,6 +2,13 @@
 #include "common.h"
 #include "player/player.h"
 
+// Local movement bounds; no engine object is passed through this type.
+struct MovementBounds
+{
+	Vector mins;
+	Vector maxs;
+};
+
 class CCSPlayer_MovementServices;
 
 #include "sdk/datatypes.h"
@@ -92,7 +99,7 @@ public:
 	// It is not recommended use this to change the angle inside movement processing, it might not work!
 	virtual void SetAngles(const QAngle &angles);
 
-	virtual void GetBBoxBounds(bbox_t *bounds, bbox_t *offset = nullptr);
+	virtual void GetBBoxBounds(MovementBounds *bounds, MovementBounds *offset = nullptr);
 
 	virtual TurnState GetTurning();
 

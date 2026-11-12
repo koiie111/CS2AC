@@ -1,4 +1,5 @@
 #include "movement.h"
+#include <engine2/isource2server.h>
 #include "utils/utils.h"
 #include "utils/detours.h"
 #include "sdk/tracefilter.h"
@@ -234,13 +235,13 @@ f32 MovementPlayer::GetGroundPosition()
 
 	f32 standableZ = 0.7;
 
-	CConVarRef<float> sv_standable_normal("sv_standable_normal");
+	CConVarRef<float> sv_standable_normal {ConVarRefAbstract("sv_standable_normal", true)};
 	if (sv_standable_normal.IsValidRef() && sv_standable_normal.IsConVarDataAvailable())
 	{
 		standableZ = sv_standable_normal.Get();
 	}
 
-	bbox_t bounds;
+	MovementBounds bounds;
 	bounds.mins = {-16.0, -16.0, 0.0};
 	bounds.maxs = {16.0, 16.0, 72.0};
 
@@ -307,7 +308,7 @@ void MovementPlayer::RegisterLanding(const Vector &landingVelocity, bool distbug
 		// The true landing origin from TryPlayerMove, use this whenever you can
 		f32 normal = 0.7;
 
-		CConVarRef<float> sv_walkable_normal("sv_walkable_normal");
+		CConVarRef<float> sv_walkable_normal {ConVarRefAbstract("sv_walkable_normal", true)};
 		if (sv_walkable_normal.IsValidRef() && sv_walkable_normal.IsConVarDataAvailable())
 		{
 			normal = sv_walkable_normal.Get();
@@ -346,7 +347,7 @@ void MovementPlayer::RegisterLanding(const Vector &landingVelocity, bool distbug
 		// Doesn't match the theoretical values for probably floating point limitation reasons, but it's good enough
 
 		Vector gravity = {0, 0, -800};
-		CConVarRef<float> sv_gravity("sv_gravity");
+		CConVarRef<float> sv_gravity {ConVarRefAbstract("sv_gravity", true)};
 		if (sv_gravity.IsValidRef() && sv_gravity.IsConVarDataAvailable())
 		{
 			gravity.z = sv_gravity.Get();
@@ -415,7 +416,7 @@ void MovementPlayer::Reset()
 	this->previousOnGround = false;
 }
 
-void MovementPlayer::GetBBoxBounds(bbox_t *bounds, bbox_t *offset)
+void MovementPlayer::GetBBoxBounds(MovementBounds *bounds, MovementBounds *offset)
 {
 	bounds->mins = {-16.0f, -16.0f, 0.0f};
 	bounds->maxs = {16.0f, 16.0f, 72.0f};

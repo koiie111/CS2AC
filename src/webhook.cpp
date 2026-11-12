@@ -261,7 +261,6 @@ void WebhookService::Unload()
 	queue.clear();
 	avatarCache.clear();
 	http = nullptr;
-	steamContext.Clear();
 	disabled = false;
 	overflowWarned = false;
 	httpUnavailableWarned = false;
@@ -350,7 +349,7 @@ void WebhookService::SendNext()
 {
 	if (!http)
 	{
-		if (!steamContext.Init() || !(http = steamContext.SteamHTTP()))
+		if (!(http = SteamGameServerHTTP()))
 		{
 			if (!httpUnavailableWarned)
 			{
@@ -561,11 +560,7 @@ std::string WebhookService::ServerAddress()
 	{
 		return overrideAddress;
 	}
-	auto *gameServer = steamContext.SteamGameServer();
-	if (!gameServer && steamContext.Init())
-	{
-		gameServer = steamContext.SteamGameServer();
-	}
+	auto *gameServer = SteamGameServer();
 	if (!gameServer)
 	{
 		return "";

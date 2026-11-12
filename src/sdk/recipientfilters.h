@@ -2,11 +2,13 @@
 #include "irecipientfilter.h"
 #include "utils/utils.h"
 #include "interfaces/interfaces.h"
-#include "inetchannel.h"
+#include "networksystem/inetchannel.h"
 #include "sdk/entity/cbaseentity.h"
 #include "sdk/serversideclient.h"
 #include "interfaces/interfaces.h"
-#include "iserver.h"
+#include "engine2/isource2server.h"
+#include "engine2/inetworkserverservice.h"
+#include "engine2/networkgameserverbase.h"
 
 class CRecipientFilter : public IRecipientFilter
 {
@@ -124,7 +126,7 @@ public:
 		}
 		for (int i = 0; i < clients->Count(); i++)
 		{
-			if (clients->Element(i)->IsInGame())
+			if (clients->Element(i) && clients->Element(i)->IsActive())
 			{
 				AddRecipient(clients->Element(i)->GetPlayerSlot());
 			}

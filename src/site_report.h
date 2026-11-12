@@ -43,7 +43,6 @@ private:
 	void RetryOrDrop(int status);
 	static std::string BuildPayload(const char *detection, MovementPlayer *player, std::string_view evidence);
 
-	CSteamGameServerAPIContext steamContext;
 	ISteamHTTP *http {};
 	CCallResult<SiteReportService, HTTPRequestCompleted_t> callResult;
 	std::deque<ReportData> queue;

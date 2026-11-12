@@ -4,7 +4,7 @@
 #include "utils/interfaces.h"
 
 class CGameConfig;
-class CServerSideClient;
+class CServerSideClientBase;
 class IGameEventListener2;
 class IRecipientFilter;
 
@@ -15,8 +15,8 @@ class CS2ACUtils
 public:
 	CGlobalVars *GetGlobals();
 	const CGlobalVars *GetServerGlobals();
-	CUtlVector<CServerSideClient *> *GetClientList();
-	CServerSideClient *GetClientBySlot(CPlayerSlot slot);
+	CUtlVector<CServerSideClientBase *> *GetClientList();
+	CServerSideClientBase *GetClientBySlot(CPlayerSlot slot);
 	IGameEventListener2 *GetLegacyGameEventListener(CPlayerSlot slot);
 };
 

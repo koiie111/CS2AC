@@ -1,35 +1,52 @@
 #include "ctimer.h"
 
-CUtlVector<CTimerBase *> g_NonPersistentTimers;
-CUtlVector<CTimerBase *> g_PersistentTimers;
+std::vector<std::shared_ptr<CTimerBase>> g_NonPersistentTimers;
+std::vector<std::shared_ptr<CTimerBase>> g_PersistentTimers;
 
-static_function void ProcessTimerList(CUtlVector<CTimerBase *> &timers)
+static void ClearTimerList(std::vector<std::shared_ptr<CTimerBase>> &timers)
+{
+	for (const auto &timer : timers)
+	{
+		timer->active = false;
+	}
+	timers.clear();
+}
+
+static void ProcessTimerList(std::vector<std::shared_ptr<CTimerBase>> &timers)
 {
 	if (!g_pCS2ACUtils || !g_pCS2ACUtils->GetGlobals())
 	{
 		return;
 	}
-
-	for (int i = timers.Count() - 1; i >= 0; i--)
+	// A callback may cancel timers or append another one. Keep the current
+	// invocation alive and visit only the timers present at the start.
+	const auto snapshot = timers;
+	for (auto it = snapshot.rbegin(); it != snapshot.rend(); ++it)
 	{
-		auto timer = timers[i];
-		f64 currentTime = timer->useRealTime ? g_pCS2ACUtils->GetGlobals()->realtime : g_pCS2ACUtils->GetGlobals()->curtime;
+		const auto &timer = *it;
+		if (!timer->active)
+		{
+			continue;
+		}
+		const auto *globals = g_pCS2ACUtils->GetGlobals();
+		const f64 now = timer->useRealTime ? globals->realtime : globals->curtime;
 		if (timer->lastExecute == -1)
 		{
-			timer->lastExecute = currentTime;
+			timer->lastExecute = now;
 		}
-
-		if (timer->lastExecute + timer->interval <= currentTime)
+		if (timer->lastExecute + timer->interval > now)
 		{
-			if (!timer->Execute())
-			{
-				delete timer;
-				timers.Remove(i);
-			}
-			else
-			{
-				timer->lastExecute = currentTime;
-			}
+			continue;
+		}
+		const bool repeat = timer->Execute();
+		if (repeat && timer->active)
+		{
+			timer->lastExecute = now;
+		}
+		else
+		{
+			timer->active = false;
+			timers.erase(std::remove(timers.begin(), timers.end(), timer), timers.end());
 		}
 	}
 }
@@ -42,11 +59,11 @@ void ProcessTimers()
 
 void RemoveNonPersistentTimers()
 {
-	g_NonPersistentTimers.PurgeAndDeleteElements();
+	ClearTimerList(g_NonPersistentTimers);
 }
 
 void RemoveAllTimers()
 {
-	g_NonPersistentTimers.PurgeAndDeleteElements();
-	g_PersistentTimers.PurgeAndDeleteElements();
+	ClearTimerList(g_NonPersistentTimers);
+	ClearTimerList(g_PersistentTimers);
 }
