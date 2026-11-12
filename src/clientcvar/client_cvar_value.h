@@ -1,4 +1,4 @@
-﻿/**
+/**
  * vim: set ts=4 sw=4 tw=99 noet :
  * ======================================================
  * ClientCvarValue
@@ -18,7 +18,7 @@
 #define CLIENT_CVAR_VALUE_COMPONENT_H
 
 #include "iclientcvarvalue.h"
-#include <networksystem/netmessage.h>
+#include <networksystem/inetworkmessages.h>
 #include <netmessages.pb.h>
 #include <array>
 #include <chrono>
@@ -45,6 +45,9 @@ public:
 	void OnClientDisconnect(CPlayerSlot nSlot);
 	void OnMapReset();
 
+	std::uint64_t QueriesSent() const { return m_queriesSent; }
+	std::uint64_t ValidatedReplies() const { return m_validatedReplies; }
+
 	IClientCvarValue *GetInterface()
 	{
 		return this;
@@ -59,6 +62,7 @@ private:
 	std::unique_ptr<KHook::Function<bool, void *, const CNetMessagePB<CCLCMsg_RespondCvarValue> &>> m_responseHook;
 	int m_iClientSlotOffset = -1;
 	uint32_t m_iQueryCvarCookieCounter = 0;
+	std::uint64_t m_queriesSent = 0, m_validatedReplies = 0;
 	IVEngineServer2 *m_pEngineServer = nullptr;
 	IGameEventSystem *m_pGameEventSystem = nullptr;
 	INetworkMessageInternal *m_pGetCvarValueMessage = nullptr;

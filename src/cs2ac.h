@@ -3,6 +3,7 @@
 #include "detection/detection_system.h"
 #include "clientcvar/client_cvar_value.h"
 #include "common.h"
+#include <engine2/gameshareddefs.h>
 #include "localization.h"
 #include "version_gen.h"
 
@@ -101,6 +102,7 @@ private:
 	bool Activate(char *error, size_t maxlen, bool late);
 	void ResetRuntime();
 	void CleanupRuntime();
+	std::uint64_t fireBulletsSeen {};
 	bool loaded {};
 	bool activationPending {};
 	bool convarsRegistered {};

@@ -12,7 +12,7 @@ python3 -c 'import sys; raise SystemExit(0 if sys.version_info >= (3, 8) else 1)
   { echo "Python 3.8 or newer is required." >&2; exit 1; }
 
 cd "$SOURCE_DIR"
-if [[ -d .git ]]; then
+if git rev-parse --git-dir >/dev/null 2>&1; then
   git submodule update --init --recursive
 elif [[ ! -d hl2sdk-cs2/public || ! -d metamod-source/core ]]; then
   echo "This source copy is missing the CS2 SDK or Metamod dependency." >&2

@@ -150,7 +150,9 @@ void utils::ClientPrintFilter(IRecipientFilter *filter, int destination, const c
 							  const char *param3, const char *param4)
 {
 	auto *networkMessage = g_pNetworkMessages->FindNetworkMessagePartial("TextMsg");
-	auto *textMessage = networkMessage->AllocateMessage()->ToPB<CUserMessageTextMsg>();
+	auto *allocated = networkMessage ? networkMessage->AllocateMessage() : nullptr;
+	if (!allocated) return;
+	auto *textMessage = allocated->ToPB<CUserMessageTextMsg>();
 	textMessage->set_dest(destination);
 	textMessage->add_param(message);
 	textMessage->add_param(param1);
@@ -251,31 +253,15 @@ static constexpr int maximumDetectionHtmlBroadcasts = 51;
 
 static void SendDetectionHtml(const char *message, int duration)
 {
-	if (!interfaces::pGameEventManager || !interfaces::pGameEventSystem || !g_pNetworkMessages)
-	{
-		return;
-	}
-	auto *event = interfaces::pGameEventManager->CreateEvent("show_survival_respawn_status");
-	auto *networkMessage = g_pNetworkMessages->FindNetworkMessageById(GE_Source1LegacyGameEvent);
-	if (!event || !networkMessage)
-	{
-		if (event)
-		{
-			interfaces::pGameEventManager->FreeEvent(event);
-		}
-		return;
-	}
-
+	if (!interfaces::pGameEventManager) return;
+	auto *event = interfaces::pGameEventManager->CreateEvent("show_survival_respawn_status", true);
+	if (!event) return;
 	event->SetString("loc_token", message);
 	event->SetInt("duration", duration);
 	event->SetInt("userid", -1);
-
-	auto *data = networkMessage->AllocateMessage()->ToPB<CMsgSource1LegacyGameEvent>();
-	CBroadcastRecipientFilter filter;
-	interfaces::pGameEventManager->SerializeEvent(event, data);
-	interfaces::pGameEventSystem->PostEventAbstract(-1, false, &filter, networkMessage, data, 0);
-	delete data;
-	interfaces::pGameEventManager->FreeEvent(event);
+	// FireEvent consumes the event and uses the engine's own current message
+	// serializer. Never free an event after transferring it to the manager.
+	interfaces::pGameEventManager->FireEvent(event);
 }
 
 static f64 ResendDetectionHtml()

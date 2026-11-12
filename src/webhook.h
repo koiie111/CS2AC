@@ -64,7 +64,6 @@ private:
 	std::string BuildPayload(const ReportData &report);
 	std::string ServerAddress();
 
-	CSteamGameServerAPIContext steamContext;
 	ISteamHTTP *http {};
 	CCallResult<WebhookService, HTTPRequestCompleted_t> callResult;
 	std::deque<ReportData> queue;

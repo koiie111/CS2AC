@@ -77,6 +77,8 @@ binary.compiler.cxxincludes += [
 binary.sources += [
   os.path.join(sdk['path'], 'entity2', 'entityidentity.cpp'),
   os.path.join(sdk['path'], 'entity2', 'entitysystem.cpp'),
+  os.path.join(sdk['path'], 'entity2', 'entitykeyvalues.cpp'),
+  os.path.join(sdk['path'], 'tier0_perproject', 'keyvalues3.cpp'),
 ]
 binary.sources += collectPluginSources(cxx.target.platform)
 binary.compiler.postlink.insert(0, protobuf)
@@ -91,6 +93,7 @@ if cxx.target.platform == 'windows':
   ]
   binary.compiler.linkflags += ['/DELAYLOAD:steam_api64.dll']
 else:
+  binary.compiler.linkflags += ['-Wl,--version-script=' + os.path.join(builder.sourcePath, 'exports-linux.map')]
   binary.compiler.postlink += [
     os.path.join(sdk['path'], 'lib', 'linux64', 'mathlib.a'),
   ]

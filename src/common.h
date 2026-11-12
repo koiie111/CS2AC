@@ -28,6 +28,7 @@
 #include "vendor/tinyformat.h"
 
 #include "entity2/entitysystem.h"
+#include "gameentitysystem.h"
 #include "tier0/dbg.h"
 
 #define MAXPLAYERS 64

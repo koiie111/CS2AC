@@ -9,7 +9,9 @@
 #include "utils/utils.h"
 
 #include "igameevents.h"
-#include "iserver.h"
+#include "engine2/isource2server.h"
+#include "engine2/inetworkserverservice.h"
+#include "engine2/networkgameserverbase.h"
 #include "cs_gameevents.pb.h"
 
 namespace

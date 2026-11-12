@@ -93,7 +93,6 @@ void SiteReportService::Unload()
 	CancelRequest();
 	queue.clear();
 	http = nullptr;
-	steamContext.Clear();
 	disabled = false;
 	overflowWarned = false;
 	httpUnavailableWarned = false;
@@ -151,7 +150,7 @@ void SiteReportService::SendNext()
 {
 	if (!http)
 	{
-		if (!steamContext.Init() || !(http = steamContext.SteamHTTP()))
+		if (!(http = SteamGameServerHTTP()))
 		{
 			if (!httpUnavailableWarned)
 			{

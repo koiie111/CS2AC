@@ -36,7 +36,7 @@ public:
 		return index - 1;
 	}
 
-	CServerSideClient *GetClient();
+	CServerSideClientBase *GetClient();
 
 	bool IsConnected();
 	bool IsInGame();

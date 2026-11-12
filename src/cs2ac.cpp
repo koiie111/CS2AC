@@ -1,10 +1,11 @@
+#include "utils/network_abi.h"
+#include <engine2/networkgameserverbase.h>
 #include "cs2ac.h"
 
 #include "localization.h"
 #include "movement_analysis/detection/movement_detection.h"
 #include "movement_analysis/player_context.h"
 #include "movement_analysis/settings/movement_settings.h"
-#include "sdk/cgameresourceserviceserver.h"
 #include "sdk/navphysicsinterface.h"
 #include "settings.h"
 #include "site_report.h"
@@ -391,14 +392,28 @@ bool CS2ACPlugin::Activate(char *error, size_t maxlen, bool late)
 	modules::Initialize(missing);
 	interfaces::Initialize(g_SMAPI, missing);
 	utils::Initialize(missing);
+	Msg("[CS2AC] Engine bindings: net_handle=%zu cvar_response=%d client_slot=%zu clients=%zu.\n",
+		sizeof(INetworkMessageInternal), KHook::GetVtableIndex(&CServerSideClientBase::ProcessRespondCvarValue),
+		offsetof(CServerSideClientBase, m_nClientSlot), offsetof(CNetworkGameServerBase, m_Clients));
+
+	for (const char *name : {"TextMsg", "CSVCMsg_GetCvarValue", "Source1LegacyGameEvent"})
+	{
+		auto *descriptor = g_pNetworkMessages ? g_pNetworkMessages->FindNetworkMessagePartial(name) : nullptr;
+		auto *message = descriptor ? descriptor->AllocateMessage() : nullptr;
+		if (message)
+		{
+			const auto payloadOffset = static_cast<const char *>(message->AsProto()) - reinterpret_cast<const char *>(message);
+			if (payloadOffset != sizeof(CNetMessage))
+				missing.emplace_back(std::string("The protobuf envelope layout is incompatible for ") + name + ".");
+			delete message;
+		}
+	}
 
 	if (g_pGameConfig)
 	{
-		AddOffsetRequirement("GameEntitySystem", "game entity system", missing);
 		AddOffsetRequirement("Teleport", "player teleport", missing);
 		AddOffsetRequirement("IsEntityPawn", "player pawn check", missing);
 		AddOffsetRequirement("IsEntityController", "player controller check", missing);
-		AddOffsetRequirement("ClientOffset", "player list", missing);
 	}
 
 	if (g_pNetworkMessages && !g_pNetworkMessages->FindNetworkMessagePartial("TextMsg"))
@@ -561,7 +576,7 @@ bool CS2ACPlugin::Unload(char *error, size_t maxlen)
 
 bool CS2ACPlugin::Pause(char *error, size_t maxlen)
 {
-	const char *reason = "CS2AC cannot be paused safely. Unload it instead.";
+	const char *reason = "CS2AC cannot be paused safely. Use cs2ac_enabled 0 to disable checks.";
 	if (error && maxlen)
 	{
 		snprintf(error, maxlen, "%s", reason);
@@ -633,6 +648,7 @@ void CS2ACPlugin::OnGameEvent(IGameEvent *event, MovementPlayer *player)
 
 void CS2ACPlugin::OnFireBullets(const CMsgTEFireBullets &event)
 {
+	++fireBulletsSeen;
 	auto *globals = g_pCS2ACUtils->GetServerGlobals();
 	detectionSystem.OnFireBullets(event, globals ? globals->tickcount : 0);
 }
@@ -1002,6 +1018,9 @@ void CS2ACPlugin::PrintStatus() const
 		const auto age = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now() - lastConfigLoad).count();
 		Msg("[CS2AC] Configuration: loaded %lld seconds ago.\n", static_cast<long long>(age));
 	}
+	Msg("[CS2AC] Network: %llu fire-bullets events, %llu cvar queries posted, %llu validated replies.\n",
+		static_cast<unsigned long long>(fireBulletsSeen), static_cast<unsigned long long>(g_ClientCvarValue.QueriesSent()),
+		static_cast<unsigned long long>(g_ClientCvarValue.ValidatedReplies()));
 	Msg("[CS2AC] Players: %d connected (%d human, %d bots).\n", connected, humans, bots);
 	Msg("[CS2AC] Detectors: %zu/%zu enabled.\n", settings::GetEnabledDetectionCount(), static_cast<size_t>(DetectionType::Count));
 	Msg("[CS2AC] Detector modes: %zu website report, %zu punishment.\n", CountDetectionsWithMode(DetectionMode::Report),
@@ -1027,6 +1046,7 @@ void CS2ACPlugin::PrintStatus() const
 
 void CS2ACPlugin::ResetRuntime()
 {
+	fireBulletsSeen = 0;
 	if (configReloadPending)
 	{
 		configReloadPending = false;
@@ -1077,12 +1097,14 @@ void CS2ACPlugin::CleanupRuntime()
 		svCheatsWatcherInstalled = false;
 	}
 	localization::Shutdown();
-	settings::Shutdown();
+	// The SDK registration list holds pointers into Configuration. Remove all
+	// engine registrations while those objects are alive, then release them.
 	if (convarsRegistered)
 	{
 		ConVar_Unregister();
 		convarsRegistered = false;
 	}
+	settings::Shutdown();
 	if (g_pCS2ACPlayerManager)
 	{
 		g_pCS2ACPlayerManager->ResetPlayers();
@@ -1098,9 +1120,4 @@ void CS2ACPlugin::CleanupRuntime()
 	configLoadFailed = false;
 	lastConfigLoad = {};
 	activationError.clear();
-}
-
-CGameEntitySystem *GameEntitySystem()
-{
-	return interfaces::pGameResourceServiceServer ? interfaces::pGameResourceServiceServer->GetGameEntitySystem() : nullptr;
 }

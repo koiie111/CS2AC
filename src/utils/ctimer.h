@@ -3,7 +3,7 @@
 #include <functional>
 #include <tuple>
 #include "utils/utils.h"
-#include "../../hl2sdk-cs2/public/tier1/utlvector.h"
+#include "tier0/utlvector.h"
 #include "interfaces.h"
 
 /*
@@ -21,14 +21,15 @@ public:
 	f64 interval {};
 	f64 lastExecute = -1;
 	bool useRealTime {};
+	bool active {true};
 };
 
 void ProcessTimers();
 void RemoveNonPersistentTimers();
 void RemoveAllTimers();
 
-extern CUtlVector<CTimerBase *> g_NonPersistentTimers;
-extern CUtlVector<CTimerBase *> g_PersistentTimers;
+extern std::vector<std::shared_ptr<CTimerBase>> g_NonPersistentTimers;
+extern std::vector<std::shared_ptr<CTimerBase>> g_PersistentTimers;
 
 template<typename... Args>
 class CTimer : public CTimerBase
@@ -55,7 +56,7 @@ public:
 template<typename... Args>
 CTimer<Args...> *StartTimer(typename CTimer<Args...>::Fn fn, Args... args, f64 initialDelay, bool preserveMapChange = true, bool useRealTime = false)
 {
-	auto timer = new CTimer<Args...>(useRealTime, initialDelay, fn, args...);
-	(preserveMapChange ? g_PersistentTimers : g_NonPersistentTimers).AddToTail(timer);
-	return timer;
+	auto timer = std::make_shared<CTimer<Args...>>(useRealTime, initialDelay, fn, args...);
+	(preserveMapChange ? g_PersistentTimers : g_NonPersistentTimers).push_back(timer);
+	return timer.get();
 }

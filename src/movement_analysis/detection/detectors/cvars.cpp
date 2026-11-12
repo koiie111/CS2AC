@@ -5,7 +5,8 @@
 #include "movement_analysis/detection/movement_detection.h"
 #include "settings.h"
 #include "utils/ctimer.h"
-#include "tier1/random.h"
+#include "tier0/random.h"
+#include <tier0/icvar.h>
 #include <chrono>
 
 CConVarRef<bool> sv_cheats("sv_cheats");
@@ -124,7 +125,7 @@ static_function void ResetTransientDetectionStateForAllPlayers()
 	}
 }
 
-static_global void OnCvarChanged(ConVarRefAbstract *ref, CSplitScreenSlot, const char *pNewValue, const char *, void *)
+static_global void OnCvarChanged(ConVarRefAbstract *ref, CSplitScreenSlot, const char *pNewValue, const char *, ConVarUserInfoSet_t *)
 {
 	if (!ref)
 	{
