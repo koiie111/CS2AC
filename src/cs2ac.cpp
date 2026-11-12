@@ -392,9 +392,9 @@ bool CS2ACPlugin::Activate(char *error, size_t maxlen, bool late)
 	modules::Initialize(missing);
 	interfaces::Initialize(g_SMAPI, missing);
 	utils::Initialize(missing);
-	Msg("[CS2AC] Engine bindings: net_handle=%zu cvar_response=%d client_slot=%zu clients=%zu.\n",
-		sizeof(INetworkMessageInternal), KHook::GetVtableIndex(&CServerSideClientBase::ProcessRespondCvarValue),
-		offsetof(CServerSideClientBase, m_nClientSlot), offsetof(CNetworkGameServerBase, m_Clients));
+	Msg("[CS2AC] Engine bindings: net_handle=%zu cvar_response=%d client_slot=%zu clients=%zu.\n", sizeof(INetworkMessageInternal),
+		KHook::GetVtableIndex(&CServerSideClientBase::ProcessRespondCvarValue), offsetof(CServerSideClientBase, m_nClientSlot),
+		offsetof(CNetworkGameServerBase, m_Clients));
 
 	for (const char *name : {"TextMsg", "CSVCMsg_GetCvarValue", "Source1LegacyGameEvent"})
 	{
@@ -404,7 +404,9 @@ bool CS2ACPlugin::Activate(char *error, size_t maxlen, bool late)
 		{
 			const auto payloadOffset = static_cast<const char *>(message->AsProto()) - reinterpret_cast<const char *>(message);
 			if (payloadOffset != sizeof(CNetMessage))
+			{
 				missing.emplace_back(std::string("The protobuf envelope layout is incompatible for ") + name + ".");
+			}
 			delete message;
 		}
 	}

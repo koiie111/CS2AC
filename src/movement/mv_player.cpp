@@ -235,7 +235,7 @@ f32 MovementPlayer::GetGroundPosition()
 
 	f32 standableZ = 0.7;
 
-	CConVarRef<float> sv_standable_normal{ConVarRefAbstract("sv_standable_normal", true)};
+	CConVarRef<float> sv_standable_normal {ConVarRefAbstract("sv_standable_normal", true)};
 	if (sv_standable_normal.IsValidRef() && sv_standable_normal.IsConVarDataAvailable())
 	{
 		standableZ = sv_standable_normal.Get();
@@ -308,7 +308,7 @@ void MovementPlayer::RegisterLanding(const Vector &landingVelocity, bool distbug
 		// The true landing origin from TryPlayerMove, use this whenever you can
 		f32 normal = 0.7;
 
-		CConVarRef<float> sv_walkable_normal{ConVarRefAbstract("sv_walkable_normal", true)};
+		CConVarRef<float> sv_walkable_normal {ConVarRefAbstract("sv_walkable_normal", true)};
 		if (sv_walkable_normal.IsValidRef() && sv_walkable_normal.IsConVarDataAvailable())
 		{
 			normal = sv_walkable_normal.Get();
@@ -347,7 +347,7 @@ void MovementPlayer::RegisterLanding(const Vector &landingVelocity, bool distbug
 		// Doesn't match the theoretical values for probably floating point limitation reasons, but it's good enough
 
 		Vector gravity = {0, 0, -800};
-		CConVarRef<float> sv_gravity{ConVarRefAbstract("sv_gravity", true)};
+		CConVarRef<float> sv_gravity {ConVarRefAbstract("sv_gravity", true)};
 		if (sv_gravity.IsValidRef() && sv_gravity.IsConVarDataAvailable())
 		{
 			gravity.z = sv_gravity.Get();

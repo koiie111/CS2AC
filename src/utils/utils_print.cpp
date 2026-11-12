@@ -151,7 +151,10 @@ void utils::ClientPrintFilter(IRecipientFilter *filter, int destination, const c
 {
 	auto *networkMessage = g_pNetworkMessages->FindNetworkMessagePartial("TextMsg");
 	auto *allocated = networkMessage ? networkMessage->AllocateMessage() : nullptr;
-	if (!allocated) return;
+	if (!allocated)
+	{
+		return;
+	}
 	auto *textMessage = allocated->ToPB<CUserMessageTextMsg>();
 	textMessage->set_dest(destination);
 	textMessage->add_param(message);
@@ -253,9 +256,15 @@ static constexpr int maximumDetectionHtmlBroadcasts = 51;
 
 static void SendDetectionHtml(const char *message, int duration)
 {
-	if (!interfaces::pGameEventManager) return;
+	if (!interfaces::pGameEventManager)
+	{
+		return;
+	}
 	auto *event = interfaces::pGameEventManager->CreateEvent("show_survival_respawn_status", true);
-	if (!event) return;
+	if (!event)
+	{
+		return;
+	}
 	event->SetString("loc_token", message);
 	event->SetInt("duration", duration);
 	event->SetInt("userid", -1);

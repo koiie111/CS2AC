@@ -3,7 +3,11 @@
 #include "player/player.h"
 
 // Local movement bounds; no engine object is passed through this type.
-struct MovementBounds { Vector mins; Vector maxs; };
+struct MovementBounds
+{
+	Vector mins;
+	Vector maxs;
+};
 
 class CCSPlayer_MovementServices;
 
